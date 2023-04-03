@@ -1,0 +1,214 @@
+<template>
+
+  <main class="mt-0 main-content">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0">
+                <div class="card card-plain">
+                    <div class="pb-0 card-header text-start">
+                        <h4 class="font-weight-bolder">Sign In</h4>
+                        <p class="mb-0">Enter your email and password to sign in</p>
+                    </div>
+                    <div class="card-body">
+                        <form @submit.prevent="handleLogin" role="form">
+                            <!--<div class="mb-3">
+      <argon-input id="username" placeholder="Username" name="username" size="lg"/>
+    </div>
+    <div class="mb-3">
+      <argon-input id="password" type="password" placeholder="Password" name="password" size="lg"/>
+    </div>-->
+                            <div class="mb-3">
+                                <label for="username">Username</label>
+                                <input v-model="user.username"
+                                       v-validate="'required'"
+                                       type="text"
+                                       class="form-control"
+                                       name="username" />
+                                <!--<div v-if="errors.has('username')"
+                                     class="alert alert-danger"
+                                     role="alert">Username is required!</div>-->
+                            </div>
+                            <div class="mb-3">
+                                <label for="password">Password</label>
+                                <input v-model="user.password"
+                                       v-validate="'required'"
+                                       type="password"
+                                       class="form-control"
+                                       name="password" />
+                                <!--<div v-if="errors.has('password')"
+                                     class="alert alert-danger"
+                                     role="alert">Password is required!</div>-->
+                            </div>
+                            <argon-switch id="rememberMe">Remember me</argon-switch>
+                            <!--<div class="mb-3" v-if="errorFlag">
+        <argon-alert color="danger" dismissible>
+            <strong>Wrong login or password!</strong>
+        </argon-alert>
+    </div>-->
+
+                            <div class="text-center">
+                                <argon-button type="submit"
+                                              class="mt-4"
+                                              variant="gradient"
+                                              color="success"
+                                              fullWidth
+                                              size="lg">Sign in</argon-button>
+                            </div>
+                            <div class="form-group">
+                                <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+                            </div>
+                        </form>
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                  <p class="mx-auto mb-4 text-sm">
+                    Don't have an account?
+                    <a
+                      href="javascript:;"
+                      class="text-success text-gradient font-weight-bold"
+                    >Sign up</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column"
+            >
+              <div
+                class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+          background-size: cover;"
+              >
+                <span class="mask bg-gradient-success opacity-6"></span>
+                <h4
+                  class="mt-5 text-white font-weight-bolder position-relative"
+                >"Attention is the new currency"</h4>
+                <p
+                  class="text-white position-relative"
+                >The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</template>
+
+<script>
+//import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonSwitch from "@/components/ArgonSwitch.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
+//import ArgonAlert from "@/components/ArgonAlert.vue";
+import User from '../models/user';
+const body = document.getElementsByTagName("body")[0];
+
+export default {
+  name: "signin",
+  components: {
+ //   ArgonInput,
+    ArgonSwitch,
+    ArgonButton,
+ //   ArgonAlert,
+  },
+  data: () => {
+    return {
+        user: new User('', ''),
+        loading: false,
+        message: ''
+        //errorFlag: false,
+    };
+   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  methods: {
+      handleLogin() {
+          this.loading = true;
+          this.$validator.validateAll().then(isValid => {
+              if (!isValid) {
+                  this.loading = false;
+                  return;
+              }
+
+              if (this.user.username && this.user.password) {
+                  this.$store.dispatch('auth/login', this.user).then(
+                      () => {
+                          this.$router.push('/');
+                      },
+                      error => {
+                          this.loading = false;
+                          this.message =
+                              (error.response && error.response.data) ||
+                              error.message ||
+                              error.toString();
+                      }
+                  );
+              }
+          });
+      },
+    async login(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch("https://localhost:7090/api/Login/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userName: document.querySelector('#username').value,
+                    password: document.querySelector('#password').value,
+                }),
+            });
+            if (!response.ok) throw response;
+            this.setUser("ValidUser");
+            const data = await response.json();
+            this.setToken(data.loginResponse.token);
+            this.$router.push("/");
+        } catch (e) {
+            //this.errorFlag = true;
+            //if (e.status === 401) logout();
+        }
+     }
+      
+      //async login(e) {
+      //    e.preventDefault();
+      //    const response = await fetch(".../api/v1/auth/token", {
+      //        method: "POST",
+      //        headers: {
+      //            "Content-Type": "application/json",
+      //        },
+      //        body: JSON.stringify({
+      //            userName: document.querySelector('#username').value,
+      //            password: document.querySelector('#password').value,
+      //        }),
+      //    });
+      //    const data = await response.json();
+      //    this.setToken(data.accessToken);
+      //    this.setUser(data.userName);
+      //    this.$router.push("/");
+      //},
+      
+  },
+    created() {
+    if (this.loggedIn) {
+      this.$router.push('/');
+    }
+    this.$store.state.hideConfigButton = true;
+    this.$store.state.showNavbar = false;
+    this.$store.state.showSidenav = false;
+    this.$store.state.showFooter = false;
+      body.classList.remove("bg-gray-100");
+  },
+  beforeUnmount() {
+    this.$store.state.hideConfigButton = false;
+    this.$store.state.showNavbar = true;
+    this.$store.state.showSidenav = true;
+    this.$store.state.showFooter = true;
+    body.classList.add("bg-gray-100");
+  },
+};
+</script>
