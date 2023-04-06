@@ -12,7 +12,7 @@
                         <p class="mb-0">Enter your email and password to sign in</p>
                     </div>
                     <div class="card-body">
-                        <form @submit.prevent="handleLogin" role="form">
+                        <Form @submit="handleLogin" :validation-schema="schema">
                             <!--<div class="mb-3">
       <argon-input id="username" placeholder="Username" name="username" size="lg"/>
     </div>
@@ -21,25 +21,19 @@
     </div>-->
                             <div class="mb-3">
                                 <label for="username">Username</label>
-                                <input v-model="user.username"
-                                       v-validate="'required'"
+                                <Field 
                                        type="text"
                                        class="form-control"
                                        name="username" />
-                                <!--<div v-if="errors.has('username')"
-                                     class="alert alert-danger"
-                                     role="alert">Username is required!</div>-->
+                                <ErrorMessage name="username" class="error-feedback" />
                             </div>
                             <div class="mb-3">
                                 <label for="password">Password</label>
-                                <input v-model="user.password"
-                                       v-validate="'required'"
+                                <Field 
                                        type="password"
                                        class="form-control"
                                        name="password" />
-                                <!--<div v-if="errors.has('password')"
-                                     class="alert alert-danger"
-                                     role="alert">Password is required!</div>-->
+                                <ErrorMessage name="password" class="error-feedback" />
                             </div>
                             <argon-switch id="rememberMe">Remember me</argon-switch>
                             <!--<div class="mb-3" v-if="errorFlag">
@@ -57,9 +51,11 @@
                                               size="lg">Sign in</argon-button>
                             </div>
                             <div class="form-group">
-                                <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+                                <div v-if="message" class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
                             </div>
-                        </form>
+                        </Form>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
@@ -100,103 +96,98 @@
 //import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
+    import { Form, Field, ErrorMessage } from "vee-validate";
+    import * as yup from "yup";
 //import ArgonAlert from "@/components/ArgonAlert.vue";
-import User from '../models/user';
-const body = document.getElementsByTagName("body")[0];
+    const body = document.getElementsByTagName("body")[0];
 
 export default {
   name: "signin",
   components: {
  //   ArgonInput,
     ArgonSwitch,
-    ArgonButton,
+      ArgonButton,
+      Form,
+      Field,
+      ErrorMessage,
  //   ArgonAlert,
   },
   data: () => {
+      const schema = yup.object().shape({
+          username: yup.string().required("Username is required!"),
+          password: yup.string().required("Password is required!"),
+      });
     return {
-        user: new User('', ''),
         loading: false,
-        message: ''
+        message: "",
+        schema,
         //errorFlag: false,
     };
    },
   computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
+            loggedIn() {
+                return this.$store.state.auth.status.loggedIn;
+            },
+            getRoles() {
+                return this.$store.state.auth.roles ? this.$store.state.auth.roles : null;
+            },
+        },
   methods: {
-      handleLogin() {
+      handleLogin(user) {
           this.loading = true;
-          this.$validator.validateAll().then(isValid => {
-              if (!isValid) {
-                  this.loading = false;
-                  return;
-              }
-
-              if (this.user.username && this.user.password) {
-                  this.$store.dispatch('auth/login', this.user).then(
-                      () => {
-                          this.$router.push('/');
-                      },
-                      error => {
-                          this.loading = false;
-                          this.message =
-                              (error.response && error.response.data) ||
-                              error.message ||
-                              error.toString();
-                      }
-                  );
-              }
-          });
-      },
-    async login(e) {
-        e.preventDefault();
-        try {
-            const response = await fetch("https://localhost:7090/api/Login/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userName: document.querySelector('#username').value,
-                    password: document.querySelector('#password').value,
-                }),
-            });
-            if (!response.ok) throw response;
-            this.setUser("ValidUser");
-            const data = await response.json();
-            this.setToken(data.loginResponse.token);
-            this.$router.push("/");
-        } catch (e) {
-            //this.errorFlag = true;
-            //if (e.status === 401) logout();
-        }
-     }
-      
-      //async login(e) {
-      //    e.preventDefault();
-      //    const response = await fetch(".../api/v1/auth/token", {
-      //        method: "POST",
-      //        headers: {
-      //            "Content-Type": "application/json",
-      //        },
-      //        body: JSON.stringify({
-      //            userName: document.querySelector('#username').value,
-      //            password: document.querySelector('#password').value,
-      //        }),
-      //    });
-      //    const data = await response.json();
-      //    this.setToken(data.accessToken);
-      //    this.setUser(data.userName);
-      //    this.$router.push("/");
-      //},
-      
-  },
+          this.$store.dispatch("auth/login", user).then(
+                  () => {
+                        //if (this.getRoles.length == 1) {
+                        //    this.$router.push("/botactions");
+                        //}
+                        this.$router.push("/botlist");
+                  },
+                  (error) => {
+                      this.loading = false;
+                      this.message =
+                          (error.response &&
+                              error.response.data &&
+                              error.response.data.message) ||
+                          error.message ||
+                          error.toString();
+                  }
+              );
+          },
+  //   async login(e) {
+  //       e.preventDefault();
+  //       try {
+  //           const response = await fetch("https://localhost:7090/api/Login/login", {
+  //               method: "POST",
+  //               headers: {
+  //                   "Content-Type": "application/json",
+  //               },
+  //               body: JSON.stringify({
+  //                   userName: document.querySelector('#username').value,
+  //                   password: document.querySelector('#password').value,
+  //               }),
+  //           });
+  //           if (!response.ok) throw response;
+  //           this.setUser("ValidUser");
+  //           const data = await response.json();
+  //           this.setToken(data.loginResponse.token);
+  //           this.$router.push("/");
+  //       } catch (e) {
+  //           //this.errorFlag = true;
+  //           //if (e.status === 401) logout();
+  //       }
+  //    } 
+   },
     created() {
-    if (this.loggedIn) {
-      this.$router.push('/');
-    }
+        if (this.loggedIn) {
+            if (this.getRoles) {
+                if (this.getRoles().length == 1) {
+                    this.$router.push('/botactions');
+                }
+            }
+            this.$router.push('/botlist');
+        }
+
+
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;
     this.$store.state.showSidenav = false;

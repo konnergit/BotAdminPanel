@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authHeader from './auth-header';
 
 const API_URL = 'https://localhost:7090/api/Login/';
 
@@ -10,7 +11,7 @@ class AuthService {
                 password: user.password
             })
             .then(response => {
-                if (response.data.accessToken) {
+                if (response.data.loginResponse.token) {
                     localStorage.setItem('user', JSON.stringify(response.data));
                 }
 
@@ -18,8 +19,18 @@ class AuthService {
             });
     }
 
+    getRolesSelf() {
+        return axios
+            .get(API_URL + 'roles/self', { headers: authHeader() })
+            .then(response => { 
+                localStorage.setItem('roles', JSON.stringify(response.data));
+                return response.data;
+            });
+    }
+
     logout() {
         localStorage.removeItem('user');
+        
     }
 
     register(user) {

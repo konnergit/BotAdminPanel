@@ -1,23 +1,51 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8080/api/v1';
 
 class UserService {
-    getPublicContent() {
-        return axios.get(API_URL + 'all');
+    createUser(data) {
+        return axios.post(API_URL + 'auth/user', data, { headers: authHeader() });
     }
 
-    getUserBoard() {
-        return axios.get(API_URL + 'user', { headers: authHeader() });
+    getRolesUser(data) {
+        return axios.get(API_URL + 'roles/user', { params: data, headers: authHeader() });
     }
 
-    getModeratorBoard() {
-        return axios.get(API_URL + 'mod', { headers: authHeader() });
+    getRolesAvailable() {
+        return axios.get(API_URL + 'roles/availiableroles', { headers: authHeader() });
     }
 
-    getAdminBoard() {
-        return axios.get(API_URL + 'admin', { headers: authHeader() });
+    addRoleUser(data) {
+        return axios.put(API_URL + 'roles/user', data, { headers: authHeader() });
+    }
+
+    addRoleAdmin(data) {
+        return axios.put(API_URL + 'roles/admin', data, { headers: authHeader() });
+    }
+
+    getServiceFields(data) {
+        return axios.get(API_URL + 'service/fields', { params: data, headers: authHeader() });
+    }
+
+    addServiceData(data) {
+        return axios.post(API_URL + 'service/data', data, { headers: authHeader() });
+    }
+
+    getServiceData(data) {
+        return axios.get(API_URL + 'service/data', { params: data, headers: authHeader() });
+    }
+
+    getServiceSize(data) {
+        return axios.get(API_URL + 'service/size', { params: data, headers: authHeader() });
+    }
+
+    editServiceData(data) {
+        return axios.put(API_URL + 'service/data', data, { headers: authHeader() });
+    }
+
+    deleteServiceData(data) {
+        return axios.delete(API_URL + 'service/data', { data: data, headers: authHeader() });
     }
 }
 

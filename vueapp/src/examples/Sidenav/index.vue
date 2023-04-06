@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="this.$store.state.layout === 'default'"
-    class="min-height-300 position-absolute w-100"
+    class="min-height-300 position-absolute w-100 min-vh-100"
     :class="`${this.$store.state.darkMode ? 'bg-transparent' : 'bg-success'}`"
   />
   <aside
@@ -35,7 +35,7 @@
           class="navbar-brand-img h-100"
           alt="main_logo"
         />
-        <span class="ms-2 font-weight-bold me-2">Argon Dashboard 2</span>
+        <span class="ms-2 font-weight-bold me-2">Панель управления</span>
       </router-link>
     </div>
     <hr class="mt-0 horizontal dark" />
