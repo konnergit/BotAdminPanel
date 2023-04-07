@@ -9,10 +9,11 @@
                 <h6 class="mb-0">Выберите бота</h6>
               </div>
               <div class="p-3 card-body">
-                <ul v-for="item in botinfo" class="list-group">
-                  <bot-info-item 
-                  :title="item.title"
-                  :titleDesc="item.titleDesc"
+                <ul v-for="(value, key, index) in getUserRoles" class="list-group" style="cursor: pointer;">
+                  <bot-info-item
+                  :title="key"
+                  :titleDesc="'Описание бота'"
+                  @click="selectBot(index)"
                   ></bot-info-item>
                 </ul>
               </div>
@@ -35,23 +36,36 @@ export default {
       botinfo: [{
         title: "Бот №1",
         titleDesc: "Какая-то информация о чат-боте"
-      },
-      {
-        title: "Бот №2",
-        titleDesc: "Какая-то информация о чат-боте"
-      },
-      {
-        title: "Бот №3",
-        titleDesc: "Какая-то информация о чат-боте"
-      },
-      {
-        title: "Бот №4",
-        titleDesc: "Какая-то информация о чат-боте"
-      }]
+      },]
     };
+  },
+  computed: {
+    getUserRoles() { return this.$store.state.auth.user; }
   },
   components: {
     BotInfoItem
+  },
+  methods: {
+    selectBot(index) {
+      this.$store.dispatch("chooseRole", index)
+      console.log(index);
+      this.$router.push('/botactions');
+    }
+  },
+  created() {
+    //console.log(this.getUserRoles);
+
+
+    this.$store.state.hideConfigButton = true;
+    this.$store.state.showNavbar = false;
+    this.$store.state.showSidenav = true;
+    this.$store.state.showFooter = false;
+  },
+  beforeUnmount() {
+    this.$store.state.hideConfigButton = false;
+    this.$store.state.showNavbar = true;
+    this.$store.state.showSidenav = true;
+    this.$store.state.showFooter = true;
   },
 };
 </script>

@@ -1,8 +1,14 @@
 import { createStore } from "vuex";
 import { auth } from './auth.module';
+import UserService from '../services/user.service';
+
+const roles = JSON.parse(localStorage.getItem('roles'));
 
 export default createStore({
   state: {
+    roleSelected: (roles != undefined && roles.length === 1) ? 0 : null,
+    roleName: null, 
+    roleStrc: null,
     hideConfigButton: false,
     isPinned: true,
     showConfig: false,
@@ -45,11 +51,32 @@ export default createStore({
       } else {
         state.isNavFixed = false;
       }
+    },
+      selectRole(state, payload) {
+          
+      state.roleSelected = payload;
+          //state.roleName = state.auth.roles[payload];
+          state.roleName = 'Operbot';
+          //console.log('SelectRole:' + state.auth.roles[payload]);
+    },
+    getServiceFields(state, payload) {
+      state.roleStrc = payload;
     }
   },
   actions: {
     toggleSidebarColor({ commit }, payload) {
       commit("sidebarType", payload);
+    },
+      chooseRole({ commit, state }, payload) {
+          console.log(payload);
+      commit('selectRole', payload);
+      UserService.getServiceFields(state.roleName).then(
+        response => {
+          if (response.data.Fields) {
+            commit('getServiceFields', response.data.Fields);
+          }
+          else console.log('Структура бота не получена в результате ошибки')
+        });
     }
     },
   modules: {

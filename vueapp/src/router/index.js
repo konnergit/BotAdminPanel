@@ -54,12 +54,12 @@ const routes = [
     component: RTL,
   },
   {
-    path: "/entries/edit",
+    path: "/entriesedit",
     name: "EntriesEdit",
     component: EntriesEdit,
   },
   {
-    path: "/entries/add",
+    path: "/entriesadd",
     name: "EntriesAdd",
     component: EntriesAdd,
   },

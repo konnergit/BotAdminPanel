@@ -1,62 +1,59 @@
 <template>
-                  <div class="row">
-                <div class="col-md-2">
-                  <label for="example-text-input" class="form-control-label"
-                    >Название раздела</label
-                  >
-                  <argon-input type="text" :value="catName" />
-                </div>
-                <div class="col-md-2">
-                  <label for="example-text-input" class="form-control-label"
-                    >Название подраздела</label
-                  >
-                  <argon-input type="text" :value="subcatName" />
-                </div>
-                <div class="col-md-2">
-                  <label for="example-text-input" class="form-control-label"
-                    >Текст инструкции</label
-                  >
-                  <input class="form-control" type="text" :value="instrText" />
-                </div>
-                <div class="col-md-2">
-                  <label for="example-text-input" class="form-control-label"
-                    >Ссылка на инструкцию</label
-                  >
-                  <argon-input type="text" :value="instrLink" />
-                </div>
-                <div class="col-md-2">
-                  <label for="example-text-input" class="form-control-label"
-                    >Ключевые слова</label
-                  >
-                  <argon-input type="text" :value="keywords" />
-                </div>
-              </div>
+    <div class="row data-row-entry">
+        <entry-field v-for="(key, value) in fields" :keyModel="key" :valueModel="value"></entry-field>
+    </div>
               <hr class="horizontal dark" />
 </template>
 
 <script>
-import ArgonInput from "@/components/ArgonInput.vue";
+import EntryField from "./EntryField.vue";
 
 export default {
   name: "entry-item",
-  props: {
-    catName: {
-      type: String,
-    },
-    subcatName: {
-      type: String,
-    },
-    instrText: {
-      type: String
-    },
-    instrLink: {
-      type: String
-    },
-    keywords: {
-      type: String
-    },
+        components: { EntryField },
+        data() {
+          return {
+            catName: "nyaa",
+            subcatName: "meow",
+          }         
+        },
+  props: { 
+    fields: {
+      default: {
+          catName: "321",
+          subcatName: "222",
+          instrText: "",
+          instrLink: "",
+          keywords: "",
+        }
+    }
+   },
+  methods: {
+    // updateValue(event) {
+    //         this.$emit('update:fields', event.target.value);
+    //     }
+    test() {
+      console.log(this.fields);
+    }
   },
-  components: { ArgonInput },
+  computed: {
+    fieldsC() {
+      if (!this.fields) {
+        //return this.$store.state.roleStrc;
+        return {
+          catName: "",
+          subcatName: "",
+          instrText: "",
+          instrLink: "",
+          keywords: "",
+        }
+      }
+      return this.fields;
+    }
+  },
+  created() {
+    //console.log(this.fieldsC)
+  }
 }
 
 </script>

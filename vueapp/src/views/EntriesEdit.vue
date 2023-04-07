@@ -1,26 +1,19 @@
 <template>
-    <div class="py-4 container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <ul v-for="item in entryList">
-                  <entry-item
-                  :catName="item.catName"
-                  :subcatName="item.subcatName"
-                  :instrText="item.instrText"
-                  :instrLink="item.instrLink"
-                  :keywords="item.keywords"
-                  ></entry-item>
-              </ul>
-              <argon-button color="success" size="sm" class="ms-auto"
-                  >Применить изменения</argon-button
-                >
-            </div>
+  <div class="py-4 container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <form class="card" @submit.prevent="">
+          <div class="card-body">
+            <ul id="data-body">
+                <entry-item></entry-item>
+            </ul>
+            <argon-button color="success" size="sm" class="ms-auto" @click="filterFields"
+                >Отфильтровать записи</argon-button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -29,7 +22,7 @@ import setTooltip from "@/assets/js/tooltip.js";
 import ArgonButton from "@/components/ArgonButton.vue";
 import EntryItem from "./components/EntryItem.vue";
 
-const body = document.getElementsByTagName("body")[0];
+//const body = document.getElementsByTagName("body")[0];
 
 export default {
   name: "entries",
@@ -42,38 +35,31 @@ export default {
         instrLink: "Ссылка на инструкцию",
         keywords: "Ключевые слова",
       },
-      {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
-      {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
-      {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
-      {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
     ]
     };
   },
   components: { ArgonButton, EntryItem },
+  methods: {
+    //filterFields() {
+    //  //let serviceName = this.$store.state.roleName;
+    //  let serviceName = 'Operbot';
+    //  let pageData = [];
+      
+    //  document.querySelectorAll(".data-row-entry").forEach(function(node) {
+    //    let field = {};
+    //    for (const child of node.children) {
+    //        let entryKey = child.children[0].textContent; 
+    //        let entryValue = child.children[1].value; 
+    //        field[entryKey] = entryValue;
+    //    }
+    //    pageData.push(field);
+    //  });
+
+    //  let data = { pageData, serviceName };
+    //  console.log(data);
+    //  UserService.addServiceData(data);
+    //}
+  },
 
   mounted() {
     setNavPills();

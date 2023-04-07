@@ -1,9 +1,19 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/v1';
+const API_URL = 'http://localhost:8080/api/v1/';
 
 class UserService {
+
+    getRolesSelf() {
+        return axios
+            .get(API_URL + 'roles/self', { headers: authHeader() })
+            .then(response => {
+                localStorage.setItem('roles', JSON.stringify(response.data));
+                return response.data;
+            });
+    }
+
     createUser(data) {
         return axios.post(API_URL + 'auth/user', data, { headers: authHeader() });
     }

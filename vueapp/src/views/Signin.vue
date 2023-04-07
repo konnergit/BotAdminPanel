@@ -136,11 +136,13 @@ export default {
       handleLogin(user) {
           this.loading = true;
           this.$store.dispatch("auth/login", user).then(
-                  () => {
-                        //if (this.getRoles.length == 1) {
-                        //    this.$router.push("/botactions");
-                        //}
-                        this.$router.push("/botlist");
+              () => {
+                          if (this.$store.state.auth.roles) {
+                              if (this.$store.state.auth.roles == 1) {
+                                  this.$router.push("/botactions");
+                              }
+                          }                    
+                          this.$router.push("/botlist");
                   },
                   (error) => {
                       this.loading = false;

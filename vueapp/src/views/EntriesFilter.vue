@@ -30,8 +30,6 @@ import setTooltip from "@/assets/js/tooltip.js";
 import ArgonButton from "@/components/ArgonButton.vue";
 import EntryItem from "./components/EntryItem.vue";
 
-const body = document.getElementsByTagName("body")[0];
-
 export default {
   name: "entries-filter",
   data() {

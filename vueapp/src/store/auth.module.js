@@ -63,6 +63,7 @@ export const auth = {
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
+            state.roles = null;
         },
         registerSuccess(state) {
             state.status.loggedIn = false;
