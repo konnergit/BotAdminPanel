@@ -34,10 +34,10 @@ namespace webapi.Controllers.Implementations
             return Ok();
         }
 
-        [HttpGet("data/{serviceName},{pageSize},{pageNumber}")]
-        public async Task<IActionResult> GetData([FromRoute] string serviceName, [FromRoute] int pageSize, [FromRoute] int pageNumber)
+        [HttpGet("data/{pageSize},{pageNumber}")]
+        public async Task<IActionResult> GetData([FromBody] FieldSet set, [FromRoute] int pageSize, [FromRoute] int pageNumber)
         {
-            var data = ServiceSet.Data.Where(x => x.ServiceName == serviceName).FirstOrDefault();
+            var data = ServiceSet.Data.Where(x => x.ServiceName == set.ServiceName).FirstOrDefault();
             if (data == null)
             {
                 return BadRequest("Ты питух");
