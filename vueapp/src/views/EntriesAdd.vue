@@ -64,7 +64,7 @@ export default {
       });
 
       let data = { ServiceName, pageData };
-      console.log(data);
+      //console.log(data);
       UserService.addServiceData(data);
     }
   },

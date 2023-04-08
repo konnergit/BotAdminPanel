@@ -4,7 +4,10 @@ namespace webapi.Models
 {
     public class FieldSet
     {
-       
+        public FieldSet()
+        {
+            
+        }
         public FieldSet(string serviceName, Dictionary<string, string> fields)
         {
             ServiceName = serviceName;

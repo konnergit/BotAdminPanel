@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using webapi.Controllers.Interfaces;
 using webapi.Controllers.Interfaces.v2;
 using webapi.Models.Constants;
@@ -35,7 +36,7 @@ namespace webapi.Controllers.Implementations
         [HttpGet("myRoles")]
         public IActionResult GetSelfRoles()
         {
-            var data = Enum.GetValues(typeof(UserAuthRoles));
+            var data = Enum.GetNames(typeof(UserAuthRoles));
             return Ok(data);
         }
     }

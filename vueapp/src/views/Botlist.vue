@@ -11,7 +11,7 @@
               <div class="p-3 card-body">
                 <ul v-for="(value, key, index) in getUserRoles" class="list-group" style="cursor: pointer;">
                   <bot-info-item
-                  :title="key"
+                  :title="value"
                   :titleDesc="'Описание бота'"
                   @click="selectBot(index)"
                   ></bot-info-item>
@@ -40,7 +40,7 @@ export default {
     };
   },
   computed: {
-    getUserRoles() { return this.$store.state.auth.user; }
+    getUserRoles() { return this.$store.state.auth.roles; }
   },
   components: {
     BotInfoItem

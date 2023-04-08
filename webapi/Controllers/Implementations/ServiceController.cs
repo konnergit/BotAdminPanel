@@ -20,7 +20,7 @@ namespace webapi.Controllers.Implementations
             {
                 return BadRequest("Ты питух");
             }
-            return Ok();
+            return Ok("Всё ок!");
         }
         [HttpPatch("data")]
         public async Task<IActionResult> EditData([FromBody] FieldSet data)
