@@ -22,10 +22,11 @@ namespace webapi.Controllers.Implementations
             }
             return Ok("Всё ок!");
         }
+        
+
         [HttpPatch("data")]
-        public async Task<IActionResult> EditData([FromBody] FieldSet data)
+        public async Task<IActionResult> EditData([FromBody] List<FieldSet> data)
         {
-            var _data = ServiceSet.Data.Where(x => x.ServiceName == data.ServiceName).FirstOrDefault();
             if (data == null)
             {
                 return BadRequest("Ты питух");
@@ -70,6 +71,16 @@ namespace webapi.Controllers.Implementations
         public async Task<IActionResult> RemoveData([FromRoute] string serviceName, [FromRoute] int dataId)
         {
             var data = ServiceSet.Data.Where(x => x.ServiceName == serviceName).FirstOrDefault();
+            if (data == null)
+            {
+                return BadRequest("Ты питух");
+            }
+            return Ok();
+        }
+
+        [HttpDelete("data")]
+        public async Task<IActionResult> RemoveData([FromBody] List<FieldSet> data)
+        {
             if (data == null)
             {
                 return BadRequest("Ты питух");
