@@ -5,15 +5,6 @@ const API_URL = 'https://localhost:7090/api/';
 
 class UserService {
 
-    getRolesSelf() {
-        return axios
-            .get(API_URL + 'roles/self', { headers: authHeader() })
-            .then(response => {
-                localStorage.setItem('roles', JSON.stringify(response.data));
-                return response.data;
-            });
-    }
-
     createUser(data) {
         return axios.post(API_URL + 'auth/user', data, { headers: authHeader() });
     }

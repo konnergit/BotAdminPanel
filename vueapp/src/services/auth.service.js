@@ -25,7 +25,7 @@ class AuthService {
             .get(API_URL + 'Roles/myRoles', { headers: authHeader() })
             .then(response => { 
                 localStorage.setItem('roles', JSON.stringify(response.data));
-                console.log(response);
+                //console.log(response);
                 return response.data;
             });
     }

@@ -16,7 +16,7 @@ export const auth = {
                     commit('loginSuccess', user);
                     AuthService.getRolesSelf().then(
                         roles => {
-                            commit('getRolesSuccess');
+                            commit('getRolesSuccess', roles);
                             
                             return Promise.resolve(roles);
                         },
@@ -55,8 +55,9 @@ export const auth = {
             state.status.loggedIn = true;
             state.user = user;
         },
-        getRolesSuccess(state, roles) {
+        getRolesSuccess(state, roles) {      
             state.roles = roles;
+            //console.log(state.roles + 'nyaa');
         },
         loginFailure(state) {
             state.status.loggedIn = false;
