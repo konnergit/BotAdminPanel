@@ -11,6 +11,6 @@ namespace webapi.Controllers.Interfaces.v2
         IActionResult GetFields([FromRoute] string serviceName);
         Task<IActionResult> GetTotalDataSize([FromRoute] string serviceName);
         Task<IActionResult> ImportCsv([FromBody] CsvData csvData);
-        Task<IActionResult> RemoveData([FromRoute] string serviceName, [FromRoute] int dataId);
+        Task<IActionResult> RemoveData([FromBody] List<FieldSet> data);
     }
 }

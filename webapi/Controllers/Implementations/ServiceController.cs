@@ -67,16 +67,6 @@ namespace webapi.Controllers.Implementations
         {
             return Ok();
         }
-        [HttpDelete("data/{serviceName},{dataId}")]
-        public async Task<IActionResult> RemoveData([FromRoute] string serviceName, [FromRoute] int dataId)
-        {
-            var data = ServiceSet.Data.Where(x => x.ServiceName == serviceName).FirstOrDefault();
-            if (data == null)
-            {
-                return BadRequest("Ты питух");
-            }
-            return Ok();
-        }
 
         [HttpDelete("data")]
         public async Task<IActionResult> RemoveData([FromBody] List<FieldSet> data)

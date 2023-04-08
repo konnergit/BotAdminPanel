@@ -9,7 +9,7 @@
                 <h6 class="mb-0">Выберите бота</h6>
               </div>
               <div class="p-3 card-body">
-                <ul v-for="(value, key, index) in getUserRoles" class="list-group" style="cursor: pointer;">
+                <ul v-for="value in getUserRoles" class="list-group" style="cursor: pointer;">
                   <bot-info-item
                   :title="value"
                   :titleDesc="'Описание бота'"
@@ -48,7 +48,7 @@ export default {
   methods: {
     selectBot(index) {
       this.$store.dispatch("chooseRole", index)
-      console.log(index);
+      //console.log(index);
       this.$router.push('/botactions');
     }
   },
@@ -60,6 +60,9 @@ export default {
     this.$store.state.showNavbar = false;
     this.$store.state.showSidenav = true;
     this.$store.state.showFooter = false;
+  },
+  mounted() {
+    //console.log(this.getUserRoles);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
