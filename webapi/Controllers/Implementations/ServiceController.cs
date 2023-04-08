@@ -2,14 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using webapi.Controllers.Interfaces;
+using webapi.Controllers.Interfaces.v2;
 using webapi.Models;
 using webapi.Models.Constants;
 
-namespace webapi.Controllers
+namespace webapi.Controllers.Implementations
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceController : ControllerBase
+    public class ServiceController : ControllerBase, IServiceController
     {
         [HttpPost("data")]
         public async Task<IActionResult> AddData([FromBody] FieldSet data)

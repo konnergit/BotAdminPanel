@@ -7,13 +7,13 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using webapi.Models;
-using webapi.Controllers.Interfaces;
+using webapi.Controllers.Interfaces.v2;
 
-namespace webapi.Controllers
+namespace webapi.Controllers.Implementations
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : ControllerBase, IAuthController
     {
         private readonly IConfiguration _configuration;
 

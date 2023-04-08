@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webapi.Models;
 
-namespace webapi.Controllers.Interfaces
+namespace webapi.Controllers.Interfaces.v1
 {
     public interface IServiceController
     {

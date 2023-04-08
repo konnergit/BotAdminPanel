@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace webapi.Controllers.Interfaces
+namespace webapi.Controllers.Interfaces.v1
 {
     public interface IRolesController
     {
