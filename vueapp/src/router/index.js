@@ -7,7 +7,6 @@ import VirtualReality from "../views/VirtualReality.vue";
 import RTL from "../views/Rtl.vue";
 import EntriesAdd from "../views/EntriesAdd.vue";
 import EntriesEdit from "../views/EntriesEdit.vue";
-import EntriesDelete from "../views/EntriesDelete.vue";
 import EntriesFilter from "../views/EntriesFilter.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
@@ -62,11 +61,6 @@ const routes = [
     path: "/entriesadd",
     name: "EntriesAdd",
     component: EntriesAdd,
-  },
-  {
-    path: "/entries/delete",
-    name: "EntriesDelete",
-    component: EntriesDelete,
   },
   {
     path: "/signin",

@@ -29,22 +29,48 @@ import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ArgonButton from "@/components/ArgonButton.vue";
 import EntryItem from "./components/EntryItem.vue";
+import UserService from "@/services/user.service";
 
 export default {
   name: "entries-filter",
   data() {
     return {
-        catName: "",
+        catName: "aa",
         subcatName: "",
         instrText: "",
         instrLink: "",
         keywords: "",
+        filteredData: null,
     };
+  },
+  computed: {
+    getSerName() {
+      return this.$store.state.roleName;
+    },
   },
   components: { ArgonButton, EntryItem },
   methods: {
     filterEntries() {
-        alert(this.catName);
+        let pageSize = 100;
+        let pageNumber = 1;
+        let pageData = null;
+
+        document.querySelectorAll(".data-row-entry").forEach(function(node) {
+          let field = {};
+          for (const child of node.children) {
+                let entryKey = child.children[0].textContent; 
+                let entryValue = child.children[1].value; 
+                field[entryKey] = entryValue;
+            }
+            pageData = field;
+        });
+
+        UserService.getServiceData(this.getSerName, pageData, pageSize, pageNumber).then(response => {
+          console.log(response);
+          this.filteredData = response.data;
+          this.$store.dispatch("setFilteredData", response.data);
+        });
+
     },
   },
 

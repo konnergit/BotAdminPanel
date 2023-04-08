@@ -155,29 +155,6 @@ export default {
                   }
               );
           },
-  //   async login(e) {
-  //       e.preventDefault();
-  //       try {
-  //           const response = await fetch("https://localhost:7090/api/Login/login", {
-  //               method: "POST",
-  //               headers: {
-  //                   "Content-Type": "application/json",
-  //               },
-  //               body: JSON.stringify({
-  //                   userName: document.querySelector('#username').value,
-  //                   password: document.querySelector('#password').value,
-  //               }),
-  //           });
-  //           if (!response.ok) throw response;
-  //           this.setUser("ValidUser");
-  //           const data = await response.json();
-  //           this.setToken(data.loginResponse.token);
-  //           this.$router.push("/");
-  //       } catch (e) {
-  //           //this.errorFlag = true;
-  //           //if (e.status === 401) logout();
-  //       }
-  //    } 
    },
     created() {
         if (this.loggedIn) {

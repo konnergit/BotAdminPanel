@@ -17,9 +17,9 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/entries/edit"
-          :class="getRoute() === 'EntriesEdit' ? 'active' : ''"
-          :navText="'Список записей'"
+          url="/botactions"
+          :class="getRoute() === 'Botactions' ? 'active' : ''"
+          :navText="'Управление записями'"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -28,9 +28,9 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/botactions"
-          :class="getRoute() === 'Botactions' ? 'active' : ''"
-          :navText="'Управление записями'"
+          url="/entriesedit"
+          :class="getRoute() === 'EntriesEdit' ? 'active' : ''"
+          :navText="'Редактирование записей'"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>

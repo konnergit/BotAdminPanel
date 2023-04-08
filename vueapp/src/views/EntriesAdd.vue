@@ -50,7 +50,7 @@ export default {
     },
     commitChanges() {
       //let serviceName = this.$store.state.roleName;
-      let serviceName = 'Operbot';
+      let ServiceName = 'Operbot';
       let pageData = [];
       
       document.querySelectorAll(".data-row-entry").forEach(function(node) {
@@ -63,7 +63,7 @@ export default {
         pageData.push(field);
       });
 
-      let data = { pageData, serviceName };
+      let data = { ServiceName, pageData };
       console.log(data);
       UserService.addServiceData(data);
     }

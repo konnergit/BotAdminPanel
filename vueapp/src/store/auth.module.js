@@ -17,9 +17,11 @@ export const auth = {
                     AuthService.getRolesSelf().then(
                         roles => {
                             commit('getRolesSuccess');
+                            
                             return Promise.resolve(roles);
                         },
                         error => {
+                            console.log(error);
                             return Promise.reject(error);
                         }
                         
