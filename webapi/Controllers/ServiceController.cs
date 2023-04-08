@@ -5,11 +5,11 @@ using webapi.Controllers.Interfaces;
 using webapi.Models;
 using webapi.Models.Constants;
 
-namespace webapi.Controllers.Implementations
+namespace webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceController : ControllerBase 
+    public class ServiceController : ControllerBase
     {
         [HttpPost("data")]
         public async Task<IActionResult> AddData([FromBody] FieldSet data)
@@ -33,14 +33,14 @@ namespace webapi.Controllers.Implementations
         }
 
         [HttpGet("data/{serviceName},{pageSize},{pageNumber}")]
-        public async Task<IActionResult> GetData([FromRoute]string serviceName, [FromRoute] int pageSize, [FromRoute] int pageNumber)
+        public async Task<IActionResult> GetData([FromRoute] string serviceName, [FromRoute] int pageSize, [FromRoute] int pageNumber)
         {
             var data = ServiceSet.Data.Where(x => x.ServiceName == serviceName).FirstOrDefault();
             if (data == null)
             {
                 return BadRequest("Ты питух");
             }
-            var mockData = Enumerable.Range(pageSize*pageNumber, pageSize*(pageNumber + 1)).Select( 
+            var mockData = Enumerable.Range(pageSize * pageNumber, pageSize * (pageNumber + 1)).Select(
                 x => new FieldSet(x, data.ServiceName, data.Fields)
             ).ToList();
             return Ok(JsonConvert.SerializeObject(mockData));
@@ -53,7 +53,7 @@ namespace webapi.Controllers.Implementations
             {
                 return BadRequest("Ты питух");
             }
-            return Ok(data);    
+            return Ok(data);
         }
         [HttpGet("size/{serviceName}")]
         public async Task<IActionResult> GetTotalDataSize([FromRoute] string serviceName)

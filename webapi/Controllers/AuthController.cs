@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using webapi.Models;
 using webapi.Controllers.Interfaces;
 
-namespace webapi.Controllers.Implementations
+namespace webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

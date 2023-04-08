@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapi.Controllers.Interfaces;
 using webapi.Models.Constants;
 
-namespace webapi.Controllers.Implementations
+namespace webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
