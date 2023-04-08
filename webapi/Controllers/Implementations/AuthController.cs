@@ -7,16 +7,17 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using webapi.Models;
+using webapi.Controllers.Interfaces;
 
-namespace webapi.Controllers
+namespace webapi.Controllers.Implementations
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public LoginController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
