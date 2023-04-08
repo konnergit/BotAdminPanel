@@ -23,19 +23,19 @@ namespace webapi.Controllers.Implementations
         [HttpGet("allRoles")]
         public IActionResult GetAvailiableRoles()
         {
-            var data = Enum.GetValues(typeof(UserAuthRoles)).Cast<string>();
+            var data = Enum.GetValues(typeof(UserAuthRoles));
             return Ok(data);
         }
         [HttpGet("userRole")]
         public async Task<IActionResult> GetRolesOfUser(string username)
         {
-            var data = Enum.GetValues(typeof(TechAuthRoles)).Cast<string>();
+            var data = Enum.GetValues(typeof(TechAuthRoles));
             return Ok(data);
         }
         [HttpGet("myRoles")]
         public IActionResult GetSelfRoles()
         {
-            var data = Enum.GetValues(typeof(UserAuthRoles)).Cast<string>();
+            var data = Enum.GetValues(typeof(UserAuthRoles));
             return Ok(data);
         }
     }
