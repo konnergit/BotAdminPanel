@@ -34,7 +34,7 @@ namespace webapi.Controllers.Implementations
             return Ok();
         }
 
-        [HttpGet("data/{pageSize},{pageNumber}")]
+        [HttpPost("data/{pageSize},{pageNumber}")]
         public async Task<IActionResult> GetData([FromBody] FieldSet set, [FromRoute] int pageSize, [FromRoute] int pageNumber)
         {
             var data = ServiceSet.Data.Where(x => x.ServiceName == set.ServiceName).FirstOrDefault();
