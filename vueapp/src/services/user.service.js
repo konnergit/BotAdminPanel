@@ -25,16 +25,21 @@ class UserService {
         return axios.put(API_URL + 'roles/admin', data, { headers: authHeader() });
     }
 
-    getServiceFields(data) {
-        return axios.get(API_URL + 'service/fields', { params: data, headers: authHeader() });
+    getServiceFields(serviceName) {
+        return axios.get(API_URL + 'service/fields/' + serviceName, { headers: authHeader() });
     }
 
     addServiceData(data) {
-        return axios.post(API_URL + 'Service/data', data, { headers: authHeader() });
+        return axios.post(API_URL + 'Service/data', data, { headers: authHeader() })
+        .then(
+            (response) => {
+                console.log(response.data);
+            }
+        );
     }
 
-    getServiceData(data) {
-        return axios.get(API_URL + 'service/data', { params: data, headers: authHeader() });
+    getServiceData(data, pageSize, pageNumber) {
+        return axios.get(API_URL + 'service/data/' + pageSize + ',' + pageNumber, { data: data, headers: authHeader() });
     }
 
     getServiceSize(data) {
@@ -46,7 +51,7 @@ class UserService {
     }
 
     deleteServiceData(data) {
-        return axios.delete(API_URL + 'service/data', { data: data, headers: authHeader() });
+        return axios.delete(API_URL + 'service/data', { params: data, headers: authHeader() });
     }
 }
 

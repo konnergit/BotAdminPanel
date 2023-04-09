@@ -73,16 +73,17 @@ export default createStore({
     toggleSidebarColor({ commit }, payload) {
       commit("sidebarType", payload);
     },
-    chooseRole({ commit, state}, payload) {
-      //console.log(state.auth.roles[payload] + " IMPORTANT!!!!!!!!!");
-      //rootState.auth.roles
+    chooseRole({ commit, state }, payload) {
       commit('selectRole', { selIndex:payload, selName:state.auth.roles[payload] });
-      UserService.getServiceFields(state.roleName).then(
+      //console.log(state.roleName + " IMPORTANT!!!!!!!!!");
+      return UserService.getServiceFields(state.roleName).then(
         response => {
-          if (response.data.Fields) {
-            commit('getServiceFields', response.data.Fields);
-          }
-          else console.log('Структура бота не получена в результате ошибки')
+            commit('getServiceFields', response.data.fields);
+            return Promise.resolve(response);
+        },
+        error => {
+            console.log(error);
+            return Promise.reject(error);
         });
     },
     setFilterObj({ commit }, payload) {

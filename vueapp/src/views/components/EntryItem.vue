@@ -1,6 +1,6 @@
 <template>
     <div class="row data-row-entry">
-        <entry-field v-for="(key, value) in fields" :keyModel="key" :valueModel="value"></entry-field>
+        <entry-field v-for="(key, value) in fieldsC" :keyModel="key" :valueModel="value"></entry-field>
     </div>
               <hr class="horizontal dark" />
 </template>
@@ -19,13 +19,7 @@ export default {
         },
   props: { 
     fields: {
-      default: {
-          catName: "321",
-          subcatName: "222",
-          instrText: "",
-          instrLink: "",
-          keywords: "",
-        }
+      default: null
     }
    },
   methods: {
@@ -33,22 +27,15 @@ export default {
     //         this.$emit('update:fields', event.target.value);
     //     }
     test() {
-      console.log(this.fields);
+      console.log(this.fieldsC);
     }
   },
   computed: {
     fieldsC() {
-      if (!this.fields) {
-        //return this.$store.state.roleStrc;
-        return {
-          catName: "",
-          subcatName: "",
-          instrText: "",
-          instrLink: "",
-          keywords: "",
-        }
+      if (this.fields == null) {
+        return this.$store.state.roleStrc;
       }
-      return this.fields;
+      else return this.fields;
     }
   },
   created() {

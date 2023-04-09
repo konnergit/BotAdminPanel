@@ -5,7 +5,7 @@
         <form class="card" @submit.prevent="">
           <div class="card-body">
             <ul id="data-body">
-                <entry-item v-for="item in entryList" :key="item.catName" :fields="item"></entry-item>
+                <entry-item v-for="item in pageData" :key="item.id" :fields="item"></entry-item>
             </ul>
             <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
                 >Применить изменения</argon-button>
@@ -140,7 +140,8 @@ export default {
         .then(response => {
           if (response.data)
           {
-            this.pageData = response.data;
+            this.pageData = response.data.Fields;
+            this.pageCount = response.data.TotalCount;
             this.selected = index;
           }
         })
@@ -164,6 +165,9 @@ export default {
       if (!vm.filterObj) vm.$router.push('/entriesfilter');
       //console.log(this.filterObj);
     })
+  },
+  created() {
+    this.goToPage(1);
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";

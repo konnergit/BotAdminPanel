@@ -48,8 +48,11 @@ export default {
   methods: {
     selectBot(index) {
       //console.log(index);
-      this.$store.dispatch("chooseRole", index)
-      this.$router.push('/botactions');
+      this.$store.dispatch("chooseRole", index).then(
+        () => {
+          this.$router.push('/botactions');
+        }
+      )
     }
   },
   created() {

@@ -49,8 +49,7 @@ export default {
       //console.log(this.elements);
     },
     commitChanges() {
-      //let serviceName = this.$store.state.roleName;
-      let ServiceName = 'Operbot';
+      let serviceName = this.$store.state.roleName;
       let pageData = [];
       
       document.querySelectorAll(".data-row-entry").forEach(function(node) {
@@ -63,8 +62,8 @@ export default {
         pageData.push(field);
       });
 
-      let data = { ServiceName, pageData };
-      //console.log(data);
+      let data = { serviceName, pageData };
+      console.log(data);
       UserService.addServiceData(data);
     }
   },
@@ -76,6 +75,12 @@ export default {
   mounted() {
     setNavPills();
     setTooltip();
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!vm.getStrc) vm.$router.push('/botlist');
+      //console.log(this.filterObj);
+    })
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";
