@@ -9,7 +9,7 @@
                 <h6 class="mb-0">Выберите бота</h6>
               </div>
               <div class="p-3 card-body">
-                <ul v-for="value in getUserRoles" class="list-group" style="cursor: pointer;">
+                <ul v-for="(value, index) in getUserRoles" class="list-group" style="cursor: pointer;">
                   <bot-info-item
                   :title="value"
                   :titleDesc="'Описание бота'"
@@ -47,8 +47,8 @@ export default {
   },
   methods: {
     selectBot(index) {
-      this.$store.dispatch("chooseRole", index)
       //console.log(index);
+      this.$store.dispatch("chooseRole", index)
       this.$router.push('/botactions');
     }
   },

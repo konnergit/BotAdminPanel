@@ -57,7 +57,6 @@ export const auth = {
         },
         getRolesSuccess(state, roles) {      
             state.roles = roles;
-            //console.log(state.roles + 'nyaa');
         },
         loginFailure(state) {
             state.status.loggedIn = false;

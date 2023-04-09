@@ -9,7 +9,8 @@ export default createStore({
     roleSelected: (roles != undefined && roles.length === 1) ? 0 : null,
     roleName: null, 
     roleStrc: null,
-    filteredData: null,
+    filterObj: null,
+    totalPages: 4,
     hideConfigButton: false,
     isPinned: true,
     showConfig: false,
@@ -54,25 +55,28 @@ export default createStore({
       }
     },
     selectRole(state, payload) {  
-      state.roleSelected = payload;
-      //state.roleName = state.auth.roles[payload];
-      state.roleName = 'Operbot'; //!!!!!!!!!!!!ИЗМЕНИТЬ ПЕРЕД ПРОДОМ
-      //console.log('SelectRole:' + state.auth.roles[payload]);
+      //console.log(payload.selIndex + " and " + payload.selName);
+      state.roleSelected = payload.selIndex;
+      state.roleName = payload.selName;
     },
     getServiceFields(state, payload) {
       state.roleStrc = payload;
     },
-    setFilteredData(state, payload) {
-      state.filteredData = payload;
-    }
+    setFilterObj(state, payload) {
+      state.filterObj = payload;
+    },
+    setTotalPages(state, payload) {
+      state.totalPages = payload;
+    },
   },
   actions: {
     toggleSidebarColor({ commit }, payload) {
       commit("sidebarType", payload);
     },
-    chooseRole({ commit, state }, payload) {
-      console.log(payload);
-      commit('selectRole', payload);
+    chooseRole({ commit, state}, payload) {
+      //console.log(state.auth.roles[payload] + " IMPORTANT!!!!!!!!!");
+      //rootState.auth.roles
+      commit('selectRole', { selIndex:payload, selName:state.auth.roles[payload] });
       UserService.getServiceFields(state.roleName).then(
         response => {
           if (response.data.Fields) {
@@ -81,9 +85,12 @@ export default createStore({
           else console.log('Структура бота не получена в результате ошибки')
         });
     },
-    setFilteredData({ commit }, payload) {
-      commit("setFilteredData", payload);
-    }
+    setFilterObj({ commit }, payload) {
+      commit("setFilterObj", payload);
+    },
+    setTotalPages({ commit }, payload) {
+      commit("setTotalPages", payload);
+    },
   },
   modules: {
      auth

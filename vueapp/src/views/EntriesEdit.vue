@@ -10,6 +10,12 @@
             <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
                 >Применить изменения</argon-button>
           </div>
+          <argon-pagination>
+            <argon-pagination-item prev @click="goToPage(selected - 1)"/>
+            <argon-pagination-item v-for="index in totalPages" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
+            <!-- :active="(true)?true:false" -->
+            <argon-pagination-item next @click="goToPage(selected + 1)"/>
+          </argon-pagination>
         </form>
       </div>
     </div>
@@ -21,6 +27,9 @@ import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ArgonButton from "@/components/ArgonButton.vue";
 import EntryItem from "./components/EntryItem.vue";
+import ArgonPagination from "@/components/ArgonPagination.vue";
+import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
+import UserService from "../services/user.service";
 
 //const body = document.getElementsByTagName("body")[0];
 
@@ -101,247 +110,60 @@ export default {
         instrText: "Текст инструкции",
         instrLink: "Ссылка на инструкцию",
         keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
       },
-    ]
+    ],
+    selected: 1,
+    pageSize: 20,
+    pageData: null,
     };
   },
   computed: {
-    filteredData() {
-      return this.$store.state.filteredData;
+    filterObj() {
+      return this.$store.state.filterObj;
+    },
+    totalPages() {
+      return this.$store.state.totalPages;
     }
   },
-  components: { ArgonButton, EntryItem },
+  components: { ArgonButton, EntryItem, ArgonPagination, ArgonPaginationItem, UserService },
   methods: {
     sendChanges() {
 
-    }
+    },
+    goToPage(index) {
+      if(index > 0 && index <= this.totalPages)
+      {
+        let pageSize = this.pageSize;
+        console.log(this.filterObj);
+
+        UserService.getServiceData(this.filterObj, pageSize, index)
+        .then(response => {
+          if (response.data)
+          {
+            this.pageData = response.data;
+            this.selected = index;
+          }
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
+      }
+    },
   },
 
   mounted() {
     setNavPills();
     setTooltip();
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!vm.filterObj) vm.$router.push('/entriesfilter');
+      //console.log(this.filterObj);
+    })
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";

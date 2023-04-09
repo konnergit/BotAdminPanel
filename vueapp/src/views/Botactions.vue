@@ -32,11 +32,11 @@ export default {
   name: "botactions",
   components: { ArgonButton },
   computed: {
-    getRole() { return this.$store.state.auth.roleSelected; }
+    getRole() { return this.$store.state.roleSelected; }
   },
   created() {
-    console.log(this.$store.state.auth.roleSelected);
-    if (this.getRole === null) {
+    console.log(this.$store.state.roleSelected);
+    if (this.getRole == null) {
       this.$router.push('/botlist');
     }
   },

@@ -40,7 +40,6 @@ export default {
         instrText: "",
         instrLink: "",
         keywords: "",
-        filteredData: null,
     };
   },
   computed: {
@@ -54,6 +53,7 @@ export default {
         let pageSize = 100;
         let pageNumber = 1;
         let pageData = null;
+        let serName = this.getSerName;
 
         document.querySelectorAll(".data-row-entry").forEach(function(node) {
           let field = {};
@@ -65,11 +65,11 @@ export default {
             pageData = field;
         });
 
-        UserService.getServiceData(this.getSerName, pageData, pageSize, pageNumber).then(response => {
-          console.log(response);
-          this.filteredData = response.data;
-          this.$store.dispatch("setFilteredData", response.data);
-        });
+        let data = { ServiceName:serName, Fields:pageData };
+
+        this.$store.dispatch("setFilterObj", data);
+        this.$router.push('/entriesedit');
+
 
     },
   },
