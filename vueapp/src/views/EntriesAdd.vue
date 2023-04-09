@@ -63,7 +63,7 @@ export default {
       });
 
       let data = { serviceName, pageData };
-      console.log(data);
+      //console.log(data);
       UserService.addServiceData(data);
     }
   },

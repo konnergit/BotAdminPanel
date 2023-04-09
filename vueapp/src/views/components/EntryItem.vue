@@ -1,6 +1,18 @@
 <template>
-    <div class="row data-row-entry">
-        <entry-field v-for="(key, value) in fieldsC" :keyModel="key" :valueModel="value"></entry-field>
+    <div class="row">
+      <div class="col-md-11">
+        <div class="row data-row-entry">
+            <entry-field v-for="(key, value) in fieldsC" :keyModel="key" :valueModel="value"></entry-field>
+        </div>
+      </div>
+      <template v-if="checkboxed">
+            <div class="col-md-1" style="text-align: center;">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" />
+                  <label class="custom-control-label">Удаление</label>
+                </div> 
+            </div>
+      </template>
     </div>
               <hr class="horizontal dark" />
 </template>
@@ -20,6 +32,9 @@ export default {
   props: { 
     fields: {
       default: null
+    },
+    checkboxed: {
+      default: false
     }
    },
   methods: {

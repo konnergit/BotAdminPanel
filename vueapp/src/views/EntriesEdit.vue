@@ -1,24 +1,24 @@
 <template>
   <div class="py-4 container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <form class="card" @submit.prevent="">
-          <div class="card-body">
-            <ul id="data-body">
-                <entry-item v-for="item in pageData" :key="item.id" :fields="item"></entry-item>
-            </ul>
-            <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
-                >Применить изменения</argon-button>
-          </div>
-          <argon-pagination>
-            <argon-pagination-item prev @click="goToPage(selected - 1)"/>
-            <argon-pagination-item v-for="index in totalPages" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
-            <!-- :active="(true)?true:false" -->
-            <argon-pagination-item next @click="goToPage(selected + 1)"/>
-          </argon-pagination>
-        </form>
+      <form class="card" @submit.prevent="">
+        <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+              <ul id="data-body">
+                  <entry-item v-for="item in pageData" :key="item.Fields.id" :fields="item.Fields" :checkboxed="true"></entry-item>
+              </ul>
+              <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
+                  >Применить изменения</argon-button>
+            </div>
+            <argon-pagination>
+              <argon-pagination-item prev @click="goToPage(selected - 1)"/>
+              <argon-pagination-item v-for="index in totalPages" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
+              <!-- :active="(true)?true:false" -->
+              <argon-pagination-item next @click="goToPage(selected + 1)"/>
+            </argon-pagination>
+        </div>
       </div>
-    </div>
+      </form>
   </div>
 </template>
 
@@ -45,66 +45,6 @@ export default {
         keywords: "Ключевые слова",
       },
       {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },{
         catName: "Категория",
         subcatName: "Субкатегория",
         instrText: "Текст инструкции",
@@ -141,8 +81,9 @@ export default {
           if (response.data)
           {
             this.pageData = response.data.Fields;
-            this.pageCount = response.data.TotalCount;
+            this.$store.dispatch("setTotalPages", Math.ceil(response.data.TotalCount/this.pageSize));
             this.selected = index;
+            console.log(this.pageData);
           }
         })
         .catch(function (error) {
@@ -154,6 +95,60 @@ export default {
         });
       }
     },
+    sendChanges() {
+      let serviceName = this.$store.state.roleName;
+      let pageCData = [];
+      let deleteObj = [];
+      let editObj = [];
+      
+      document.querySelectorAll(".data-row-entry").forEach(function(node) {
+        let field = {};
+        let deleteFlag = false;
+        if (node.parentElement.parentElement.querySelector(".form-check-input").checked) {
+          deleteFlag = true;
+        }
+        for (const child of node.children) {
+            let entryKey = child.children[0].textContent; 
+            let entryValue = child.children[1].value; 
+            field[entryKey] = entryValue;
+        }
+        pageCData.push({ field, deleteFlag });
+      });
+
+      //console.log(pageCData);
+      //console.log(this.pageData);
+      for (const [key, value] of Object.entries(pageCData)) {
+        if (pageCData[key].deleteFlag) {
+          deleteObj.push({ pageData:pageCData[key].field, serviceName });
+        }
+        else {
+          for (const [key2, value2] of Object.entries(pageCData[key].field)) {
+            if (value2 != this.pageData[key].Fields[key2]) {
+              editObj.push({ pageData:pageCData[key].field, serviceName });
+              break;
+            }
+          }
+        }
+      } 
+
+      //console.log(deleteObj);
+      //console.log(editObj);
+      if (deleteObj.length > 0 ) {
+        UserService.deleteServiceData(editObj)
+        .then( 
+          (response) => {
+            console.log(response);
+        });
+      }
+
+      if (editObj.length > 0) {
+        UserService.editServiceData(deleteObj)
+        .then( 
+          (response) => {
+            console.log(response);
+        });
+      }
+    }
   },
 
   mounted() {

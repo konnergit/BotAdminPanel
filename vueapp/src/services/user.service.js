@@ -39,7 +39,7 @@ class UserService {
     }
 
     getServiceData(data, pageSize, pageNumber) {
-        return axios.get(API_URL + 'service/data/' + pageSize + ',' + pageNumber, { data: data, headers: authHeader() });
+        return axios.post(API_URL + 'service/data/' + pageSize + ',' + pageNumber, data, { headers: authHeader() });
     }
 
     getServiceSize(data) {
@@ -47,11 +47,11 @@ class UserService {
     }
 
     editServiceData(data) {
-        return axios.put(API_URL + 'service/data', data, { headers: authHeader() });
+        return axios.patch(API_URL + 'service/data', data, { headers: authHeader() });
     }
 
     deleteServiceData(data) {
-        return axios.delete(API_URL + 'service/data', { params: data, headers: authHeader() });
+        return axios.delete(API_URL + 'service/data', { data: data, headers: authHeader() });
     }
 }
 
