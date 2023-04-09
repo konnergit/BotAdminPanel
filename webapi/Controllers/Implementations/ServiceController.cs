@@ -42,7 +42,7 @@ namespace webapi.Controllers.Implementations
             {
                 return BadRequest("Ты питух");
             }
-            var mockData = Enumerable.Range(pageSize * pageNumber, pageSize * (pageNumber + 1)).Select(
+            var mockData = Enumerable.Range(pageSize * pageNumber, pageSize ).Select(
                 x => new FieldSet(x, data.ServiceName, data.Fields)
             ).ToList();
             FieldSetList result = new();
