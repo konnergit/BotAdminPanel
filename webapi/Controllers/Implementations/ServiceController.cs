@@ -45,7 +45,10 @@ namespace webapi.Controllers.Implementations
             var mockData = Enumerable.Range(pageSize * pageNumber, pageSize * (pageNumber + 1)).Select(
                 x => new FieldSet(x, data.ServiceName, data.Fields)
             ).ToList();
-            return Ok(JsonConvert.SerializeObject(mockData));
+            FieldSetList result = new();
+            result.Fields = mockData;
+            result.TotalCount = mockData.Count*5;
+            return Ok(JsonConvert.SerializeObject(result));
         }
         [HttpGet("fields/{serviceName}")]
         public IActionResult GetFields([FromRoute] string serviceName)
