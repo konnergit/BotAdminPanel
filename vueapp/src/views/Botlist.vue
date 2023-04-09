@@ -9,7 +9,7 @@
                 <h6 class="mb-0">Выберите бота</h6>
               </div>
               <div class="p-3 card-body">
-                <ul v-for="(value, index) in getUserRoles" class="list-group" style="cursor: pointer;">
+                <ul v-for="(value, index) in getUserRoles" :key="index" class="list-group" style="cursor: pointer;">
                   <bot-info-item
                   :title="value"
                   :titleDesc="'Описание бота'"

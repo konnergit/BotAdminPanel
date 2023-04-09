@@ -12,7 +12,7 @@
             </div>
             <argon-pagination>
               <argon-pagination-item prev @click="goToPage(selected - 1)"/>
-              <argon-pagination-item v-for="index in totalPages" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
+              <argon-pagination-item v-for="index in totalPages" :key="index" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
               <!-- :active="(true)?true:false" -->
               <argon-pagination-item next @click="goToPage(selected + 1)"/>
             </argon-pagination>
@@ -65,11 +65,8 @@ export default {
       return this.$store.state.totalPages;
     }
   },
-  components: { ArgonButton, EntryItem, ArgonPagination, ArgonPaginationItem, UserService },
+  components: { ArgonButton, EntryItem, ArgonPagination, ArgonPaginationItem },
   methods: {
-    sendChanges() {
-
-    },
     goToPage(index) {
       if(index > 0 && index <= this.totalPages)
       {
@@ -117,7 +114,7 @@ export default {
 
       //console.log(pageCData);
       //console.log(this.pageData);
-      for (const [key, value] of Object.entries(pageCData)) {
+      for (const [key] of Object.entries(pageCData)) {
         if (pageCData[key].deleteFlag) {
           deleteObj.push({ pageData:pageCData[key].field, serviceName });
         }

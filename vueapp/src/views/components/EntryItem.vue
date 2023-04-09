@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-md-11">
         <div class="row data-row-entry">
-            <entry-field v-for="(key, value) in fieldsC" :keyModel="key" :valueModel="value"></entry-field>
+            <entry-field v-for="(key, value) in fieldsC" :key="key" :keyModel="key" :valueModel="value"></entry-field>
         </div>
       </div>
       <template v-if="checkboxed">

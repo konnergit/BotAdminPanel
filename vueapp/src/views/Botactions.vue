@@ -41,12 +41,12 @@ export default {
       this.$router.push('/botlist');
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  //beforeRouteEnter (to, from, next) {
+    //next(vm => {
       //if (!vm.getStrc) vm.$router.push('/botlist');
       //console.log(this.filterObj);
-    })
-  },
+    //})
+  //},
   methods: {
     addEntries() {
       this.$router.push('entriesadd');
