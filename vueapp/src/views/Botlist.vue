@@ -9,13 +9,14 @@
                 <h6 class="mb-0">Выберите бота</h6>
               </div>
               <div class="p-3 card-body">
-                <ul v-for="(value, index) in getUserRoles" :key="index" class="list-group" style="cursor: pointer;">
+                <ul v-for="(value, index) in getUserRoles" :key="index" class="list-group">
                   <bot-info-item
                   :title="value"
                   :titleDesc="'Описание бота'"
                   @click="selectBot(index)"
+                  style="cursor: pointer;"
                   ></bot-info-item>
-                </ul>
+              </ul>
               </div>
             </div>
           </div>
@@ -40,7 +41,9 @@ export default {
     };
   },
   computed: {
-    getUserRoles() { return this.$store.state.auth.roles; }
+    getUserRoles() { return this.$store.state.auth.roles; },
+    roleSelected() { return this.$store.state.roleSelected;},
+    roles() { return this.$store.state.auth.roles;}
   },
   components: {
     BotInfoItem
@@ -55,22 +58,22 @@ export default {
       )
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      //console.log(vm.roles.length);
+      if (vm.roleSelected != null && vm.roles.length == 1) vm.$router.push('/botactions');
+    })
+  },
   created() {
     //console.log(this.getUserRoles);
 
 
-    this.$store.state.hideConfigButton = true;
-    this.$store.state.showNavbar = false;
-    this.$store.state.showSidenav = true;
     this.$store.state.showFooter = false;
   },
   mounted() {
     //console.log(this.getUserRoles);
   },
   beforeUnmount() {
-    this.$store.state.hideConfigButton = false;
-    this.$store.state.showNavbar = true;
-    this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
   },
 };

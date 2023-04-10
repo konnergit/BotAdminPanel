@@ -68,6 +68,12 @@ export default createStore({
     setTotalPages(state, payload) {
       state.totalPages = payload;
     },
+    clearWorkingData(state) {
+      state.roleSelected = null;
+      state.roleName = null;
+      state.roleStrc = null;
+      state.filterObj = null;
+    }
   },
   actions: {
     toggleSidebarColor({ commit }, payload) {
@@ -91,6 +97,9 @@ export default createStore({
     },
     setTotalPages({ commit }, payload) {
       commit("setTotalPages", payload);
+    },
+    clearWorkingData({ commit }) {
+      commit("clearWorkingData");
     },
   },
   modules: {

@@ -5,3 +5,16 @@
 .fa-angle-right:before {
     content: ">";
 }
+
+.solid-robot-icon {
+    background-image: url("../../assets/img/solid_robot.png");
+}
+
+.subcat-nav-link {
+    margin-left: 2rem !important;
+    font-size: 0.75rem !important;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=checkbox]:after {
+    content: "\2713" !important;
+}

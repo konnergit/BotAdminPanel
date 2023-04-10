@@ -12,7 +12,7 @@
             </div>
             <argon-pagination>
               <argon-pagination-item prev @click="goToPage(selected - 1)"/>
-              <argon-pagination-item v-for="index in totalPages" :key="index" :label="index" :active="(index === selected)?true:false" @click="goToPage(index)"/>
+              <argon-pagination-item v-for="index in totalPages" :key="index" :label="index.toString()" :active="(index === selected)?true:false" @click="goToPage(index)"/>
               <!-- :active="(true)?true:false" -->
               <argon-pagination-item next @click="goToPage(selected + 1)"/>
             </argon-pagination>
@@ -37,21 +37,6 @@ export default {
   name: "entries",
   data() {
     return {
-      entryList: [{
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
-      {
-        catName: "Категория",
-        subcatName: "Субкатегория",
-        instrText: "Текст инструкции",
-        instrLink: "Ссылка на инструкцию",
-        keywords: "Ключевые слова",
-      },
-    ],
     selected: 1,
     pageSize: 20,
     pageData: null,
@@ -63,6 +48,16 @@ export default {
     },
     totalPages() {
       return this.$store.state.totalPages;
+    },
+    roleSelected() {
+      return this.$store.state.roleSelected;
+    },
+    roleName() { return this.$store.state.roleName;},
+    roleStrc() {
+      return this.$store.state.roleStrc;
+    },
+    roles() {
+      return this.$store.state.auth.roles;
     }
   },
   components: { ArgonButton, EntryItem, ArgonPagination, ArgonPaginationItem },
@@ -71,7 +66,7 @@ export default {
       if(index > 0 && index <= this.totalPages)
       {
         let pageSize = this.pageSize;
-        console.log(this.filterObj);
+        //console.log(this.filterObj);
 
         UserService.getServiceData(this.filterObj, pageSize, index)
         .then(response => {
@@ -80,7 +75,7 @@ export default {
             this.pageData = response.data.Fields;
             this.$store.dispatch("setTotalPages", Math.ceil(response.data.TotalCount/this.pageSize));
             this.selected = index;
-            console.log(this.pageData);
+            //console.log(this.pageData);
           }
         })
         .catch(function (error) {
@@ -116,12 +111,12 @@ export default {
       //console.log(this.pageData);
       for (const [key] of Object.entries(pageCData)) {
         if (pageCData[key].deleteFlag) {
-          deleteObj.push({ pageData:pageCData[key].field, serviceName });
+          deleteObj.push({ Fields:pageCData[key].field, serviceName });
         }
         else {
           for (const [key2, value2] of Object.entries(pageCData[key].field)) {
             if (value2 != this.pageData[key].Fields[key2]) {
-              editObj.push({ pageData:pageCData[key].field, serviceName });
+              editObj.push({ Fields:pageCData[key].field, serviceName });
               break;
             }
           }
@@ -131,7 +126,7 @@ export default {
       //console.log(deleteObj);
       //console.log(editObj);
       if (deleteObj.length > 0 ) {
-        UserService.deleteServiceData(editObj)
+        UserService.deleteServiceData(deleteObj)
         .then( 
           (response) => {
             console.log(response);
@@ -139,7 +134,7 @@ export default {
       }
 
       if (editObj.length > 0) {
-        UserService.editServiceData(deleteObj)
+        UserService.editServiceData(editObj)
         .then( 
           (response) => {
             console.log(response);
@@ -154,12 +149,26 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      if (!vm.filterObj) vm.$router.push('/entriesfilter');
-      //console.log(this.filterObj);
+      //console.log(vm.roleSelected);
+      //console.log(vm.$route.params.name);
+      //if (vm.roleSelected == null || vm.filterObj == null) vm.$router.push('/botlist');
     })
   },
   created() {
-    this.goToPage(1);
+    if (this.$route.params.id >= 0 && this.$route.params.id < this.roles.length) {
+      this.$store.dispatch("chooseRole", this.$route.params.id).then(
+        () => {
+          let fieldObj = {};
+          for (const key in this.roleStrc) {
+            fieldObj[key] = "";
+          }
+          //console.log(fieldObj);
+          this.$store.dispatch("setFilterObj", { ServiceName:this.roleName, Fields:fieldObj });
+          this.goToPage(1);
+        });
+    }
+    else this.$router.push('/botlist');
+    //console.log(this.filterObj);
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";
@@ -175,6 +184,21 @@ export default {
     //this.$store.state.showSidenav = true;
     this.$store.state.showFooter = false;
     this.$store.state.hideConfigButton = false;
-  }
+  },
+  beforeRouteUpdate(to, from) {
+    if (to.params.id >= 0 && to.params.id < this.roles.length) {
+      this.$store.dispatch("chooseRole", to.params.id).then(
+        () => {
+          let fieldObj = {};
+          for (const key in this.roleStrc) {
+            fieldObj[key] = "";
+          }
+          //console.log(fieldObj);
+          this.$store.dispatch("setFilterObj", { ServiceName:this.roleName, Fields:fieldObj });
+          this.goToPage(1);
+        });
+    }
+    else this.$router.push('/botlist');
+  },
 };
 </script>

@@ -53,7 +53,7 @@ const routes = [
     component: RTL,
   },
   {
-    path: "/entriesedit",
+    path: "/entriesedit/:id",
     name: "EntriesEdit",
     component: EntriesEdit,
   },

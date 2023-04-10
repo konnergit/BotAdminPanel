@@ -137,8 +137,10 @@ export default {
           this.loading = true;
           this.$store.dispatch("auth/login", user).then(
               () => {
+                
                           if (this.$store.state.auth.roles) {
-                              if (this.$store.state.auth.roles == 1) {
+                              console.log(this.getRoles);
+                              if (this.getRoles.length == 1) {
                                   this.$router.push("/botactions");
                               }
                           }                    

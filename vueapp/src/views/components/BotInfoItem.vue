@@ -1,16 +1,13 @@
 <template>
-    <div class="p-3 card-body">
-      <ul class="list-group">
         <li
-          class="mb-2 border-0 list-group-item d-flex justify-content-between border-radius-lg"
+          class="mb-3 border-3 list-group-item d-flex justify-content-between border-radius-lg"
         >
           <div class="d-flex align-items-center">
-            <div
-              class="text-center shadow icon icon-shape icon-sm bg-gradient-dark"
-            >
+            <!-- <div class="text-center shadow icon icon-shape icon-sm bg-gradient-dark">
               <i class="ni ni-mobile-button text-white opacity-10"></i>
-            </div>
-            <div class="d-flex flex-column">
+            </div> -->
+            <div class="text-center shadow icon icon-shape icon-sm solid-robot-icon"></div>
+            <div class="d-flex flex-column ms-4">
               <h6 class="mb-1 text-sm text-dark">{{ title }}</h6>
               <span class="text-xs">
                 {{ titleDesc }}
@@ -25,8 +22,6 @@
             </button>
           </div>
         </li>
-      </ul>
-    </div>
 </template>
 
 <script>

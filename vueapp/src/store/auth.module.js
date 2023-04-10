@@ -10,32 +10,40 @@ export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ commit }, user) {
+        login({ commit, dispatch }, user) {
             return AuthService.login(user).then(
                 user => {
                     commit('loginSuccess', user);
-                    AuthService.getRolesSelf().then(
-                        roles => {
-                            commit('getRolesSuccess', roles);
-                            
-                            return Promise.resolve(roles);
-                        },
-                        error => {
-                            console.log(error);
-                            return Promise.reject(error);
-                        }
-                        
-                    );
+                    return user
                 },
                 error => {
                     commit('loginFailure');
                     return Promise.reject(error);
                 }
+            ).then (
+             () => AuthService.getRolesSelf().then(
+                    roles => {
+                        commit('getRolesSuccess', roles);
+                        //console.log(roles.length);
+                        if (roles.length === 1) {
+                            dispatch('chooseRole', 0, { root: true });
+                            return Promise.resolve();
+                        } else {
+                            return Promise.resolve(roles);
+                        }
+                    },
+                    error => {
+                        console.log(error);
+                        return Promise.reject(error);
+                    }
+                    
+                )
             );
         },
-        logout({ commit }) {
+        logout({ commit, dispatch }) {
             AuthService.logout();
             commit('logout');
+            dispatch({type: 'clearWorkingData'}, { root: true });
         },
         register({ commit }, user) {
             return AuthService.register(user).then(

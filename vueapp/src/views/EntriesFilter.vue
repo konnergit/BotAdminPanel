@@ -4,13 +4,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-                  <entry-item
-                  :catName="catName"
-                  :subcatName="subcatName"
-                  :instrText="instrText"
-                  :instrLink="instrLink"
-                  :keywords="keywords"
-                  ></entry-item>
+                  <entry-item></entry-item>
                                 <argon-button
                                               @click="filterEntries"
                                               class="mt-4"
@@ -29,29 +23,16 @@ import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ArgonButton from "@/components/ArgonButton.vue";
 import EntryItem from "./components/EntryItem.vue";
-import UserService from "@/services/user.service";
 
 export default {
   name: "entries-filter",
-  data() {
-    return {
-        catName: "aa",
-        subcatName: "",
-        instrText: "",
-        instrLink: "",
-        keywords: "",
-    };
-  },
   computed: {
-    getSerName() {
-      return this.$store.state.roleName;
-    },
+    getSerName() { return this.$store.state.roleName;},
+    getSerId() { return this.$store.state.roleSelected;},
   },
   components: { ArgonButton, EntryItem },
   methods: {
     filterEntries() {
-        let pageSize = 100;
-        let pageNumber = 1;
         let pageData = null;
         let serName = this.getSerName;
 
@@ -68,7 +49,7 @@ export default {
         let data = { ServiceName:serName, Fields:pageData };
 
         this.$store.dispatch("setFilterObj", data);
-        this.$router.push('/entriesedit');
+        this.$router.push('/entriesedit/' + this.getSerId);
 
 
     },
@@ -77,6 +58,12 @@ export default {
   mounted() {
     setNavPills();
     setTooltip();
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.getSerName == null) vm.$router.push('/botlist');
+      //console.log(this.filterObj);
+    })
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";

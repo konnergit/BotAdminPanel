@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="url" class="nav-link" v-bind="$attrs">
+  <router-link :to="url" class="nav-link" v-bind="$attrs" :class="isSubcat ? 'nav-link subcat-nav-link' : 'nav-link'">
     <div
       class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center"
     >
@@ -23,7 +23,15 @@ export default {
     navText: {
       type: String,
       required: true
+    },
+    isSubcat: {
+      type: Boolean,
+      required: false
+    },
+    isPersEdit: {
+      type: Boolean,
+      required: false
     }
-  }
+  },
 };
 </script>

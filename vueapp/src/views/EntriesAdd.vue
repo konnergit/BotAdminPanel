@@ -7,10 +7,10 @@
               <ul id="data-body">
                   <entry-item v-for="element in elements" :is="element.type" :key="element.id"></entry-item>
               </ul>
-              <argon-button color="success" size="sm" class="ms-auto" @click="addField"
+              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-info btn-lg null null mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
                   >Добавить строку</argon-button
                 >
-              <argon-button color="success" size="sm" class="ms-auto" type="submit" @click="commitChanges"
+              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-success btn-lg null null mt-4" style="max-width: 300px;" type="submit" @click="commitChanges"
                   >Применить изменения</argon-button
                 >
             </div>
@@ -59,12 +59,11 @@ export default {
             let entryValue = child.children[1].value; 
             field[entryKey] = entryValue;
         }
-        pageData.push(field);
+        pageData.push({ serviceName, Fields:field });
       });
 
-      let data = { serviceName, pageData };
       //console.log(data);
-      UserService.addServiceData(data);
+      UserService.addServiceData(pageData);
     }
   },
   components: { ArgonButton, EntryItem },

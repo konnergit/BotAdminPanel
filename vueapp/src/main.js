@@ -6,6 +6,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
+//import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css"
 import ArgonDashboard from "./argon-dashboard";
 
 const appInstance = createApp(App);
