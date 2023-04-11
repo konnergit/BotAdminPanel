@@ -13,7 +13,7 @@
 
 <template>
 <select class="form-select" aria-label="Default select example">
-  <option v-for="(item, key) in itemList" :value="valueSelect ? item : key" :selected="valueSelect ? (item == itemSelected ? true : false) : (key == itemSelected ? true : false)"> {{ valueSelect ? item : key }} </option>
+  <option v-for="(item, key) in itemList" :key="key" :value="valueSelect ? item : key" :selected="valueSelect ? (item == itemSelected ? true : false) : (key == itemSelected ? true : false)"> {{ valueSelect ? item : key }} </option>
 </select>
 </template>
 
@@ -27,7 +27,6 @@ export default {
       default: "SectionTitle"
     },
     itemList: {
-      type: Object,
       default: {}
     },
     valueSelect: {

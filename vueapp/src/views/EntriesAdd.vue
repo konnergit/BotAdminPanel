@@ -77,7 +77,7 @@ export default {
       //console.log(data);
       UserService.addServiceData(pageData)
       .then(
-        (response) => {
+        () => {
           this.messageS = "Операция добавления записей прошла успешно!";
           setTimeout(() => this.messageS = "", 2500);
         })

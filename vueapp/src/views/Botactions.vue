@@ -50,14 +50,14 @@
                     <div class="col-6">
                         <ul>
                           <!-- <li v-for="item in getStrc"></li> -->
-                          <my-dropdown v-for="(item, key, index) in getStrc" :itemList="getStrc" :itemSelected="key" class="strc-field" :id="'strc-field-' + index"></my-dropdown> 
+                          <my-dropdown v-for="(item, key, index) in getStrc" :itemList="getStrc" :itemSelected="key" :key="index" class="strc-field" :id="'strc-field-' + index"></my-dropdown> 
                           
                         </ul>
                     </div>
                     <div class="col-6">
                         <ul>
                           <!-- <li v-for="item in getStrc"></li> -->
-                          <my-dropdown v-for="(item, index) in csvStrc" :itemList="csvStrc" :itemSelected="item" class="file-field" :id="'file-field-' + index" valueSelect></my-dropdown> 
+                          <my-dropdown v-for="(item, index) in csvStrc" :itemList="csvStrc" :itemSelected="item" :key="index" class="file-field" :id="'file-field-' + index" valueSelect></my-dropdown> 
                           
                         </ul>
                     </div>

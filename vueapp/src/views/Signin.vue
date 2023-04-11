@@ -94,7 +94,6 @@
 
 <script>
 //import ArgonInput from "@/components/ArgonInput.vue";
-import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
     import { Form, Field, ErrorMessage } from "vee-validate";
     import * as yup from "yup";
@@ -105,7 +104,6 @@ export default {
   name: "signin",
   components: {
  //   ArgonInput,
-    ArgonSwitch,
       ArgonButton,
       Form,
       Field,

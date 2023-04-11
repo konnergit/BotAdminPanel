@@ -319,13 +319,13 @@ export default {
     setNavPills();
     setTooltip();
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      //console.log(vm.roleSelected);
-      //console.log(vm.$route.params.name);
-      //if (vm.roleSelected == null || vm.filterObj == null) vm.$router.push('/botlist');
-    })
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => {
+  //     console.log(vm.roleSelected);
+  //     console.log(vm.$route.params.name);
+  //     if (vm.roleSelected == null || vm.filterObj == null) vm.$router.push('/botlist');
+  //   })
+  // },
   created() {
     if (this.$route.params.id >= 0 && this.$route.params.id < this.roles.length) {
       this.$store.dispatch("chooseRole", this.$route.params.id).then(
@@ -357,7 +357,7 @@ export default {
     this.$store.state.showFooter = false;
     this.$store.state.hideConfigButton = false;
   },
-  beforeRouteUpdate(to, from) {
+  beforeRouteUpdate(to) {
     if (to.params.id >= 0 && to.params.id < this.roles.length) {
       this.$store.dispatch("chooseRole", to.params.id).then(
         () => {
