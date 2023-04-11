@@ -1,5 +1,5 @@
 <template>
-   <div class="col-md-3">
+   <div :class="isSmol ? 'col-md-2' : 'col-md-3'">
         <label for="example-text-input" class="form-control-label">{{ valueModel }}</label>
         <input type="text" class="form-control" :value="keyModel"/>
     </div>
@@ -14,6 +14,10 @@ export default {
         },
         valueModel: {
             default: ""
+        },
+        isSmol: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {

@@ -27,17 +27,17 @@
           </template>
         </sidenav-item>
       </li>
-      <!-- <li class="nav-item"  @click="toggleEdit">
+      <li class="nav-item">
         <sidenav-item
-          url="/entriesedit"
-          :class="getRoute() === 'EntriesEdit' ? 'active' : ''"
-          :navText="'Редактирование записей'"
+          url="/UserCreate"
+          :class="getRoute() === 'UserCreate' ? 'active' : ''"
+          :navText="'Создание пользователя'"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </template>
         </sidenav-item>
-      </li> -->
+      </li>
       <li class="nav-item" style="cursor:pointer;" @click="toggleEdit">
         <span class="nav-link">
           <div
@@ -61,7 +61,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-item
           url="/entriesfilter"
           :class="getRoute() === 'EntriesFilter' ? 'active' : ''"
@@ -71,28 +71,16 @@
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </template>
         </sidenav-item>
-      </li>
-      <li class="nav-item">
-        <sidenav-item
-          url="/signin"
-          :class="getRoute() === 'signin' ? 'active' : ''"
-          :navText="this.$store.state.isRTL ? 'تسجيل الدخول' : 'Sign In'"
-        >
-          <template v-slot:icon>
+      </li> -->
+      <li class="nav-item" style="cursor:pointer;" @click="logOut">
+        <span class="nav-link">
+          <div
+            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
             <i class="ni ni-single-copy-04 text-danger text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-      <li class="nav-item">
-        <sidenav-item
-          url="/signup"
-          :class="getRoute() === 'signup' ? 'active' : ''"
-          :navText="this.$store.state.isRTL ? 'اشتراك' : 'Sign Up'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-collection text-info text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
+          </div>
+          <span class="nav-link-text ms-1">Выйти из системы</span
+          >
+        </span>
       </li>
     </ul>
   </div>
@@ -152,7 +140,11 @@ export default {
     },
     toggleEdit() {
       this.toggleEditFlag = !this.toggleEditFlag;
-    }
+    },
+    logOut() {
+          this.$store.dispatch('auth/logout');
+          this.$router.push('/signin');
+      }
   },
   components: {
     SidenavItem,

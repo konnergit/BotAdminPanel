@@ -1,22 +1,22 @@
 <template>
     <div class="row">
       <div class="col-md-10">
-        <div class="row data-row-entry">
-            <entry-field v-for="(key, value) in fieldsC"  v-show="value != 'Id'" :key="key" :keyModel="key" :valueModel="value"></entry-field>
+        <div :class="isEmbeddedFilter ? 'row data-row-filter' : 'row data-row-entry'">
+            <entry-field v-for="(key, value) in fieldsC"  v-show="value != 'Id'" :key="key" :keyModel="key" :valueModel="value" :isSmol="isSmol"></entry-field>
         </div>
       </div>
       <template v-if="checkboxed">
             <div class="col-md-2" style="text-align: center;">
               <div class="row align-items-center" style="height: 100%">
                 <div class="form-check" style="position: relative; text-align: left; padding-left: 4em; margin-bottom: 0px;">
-                  <input class="form-check-input" type="checkbox" />
+                  <input class="form-check-input delete_checkbox" type="checkbox" />
                   <label class="custom-control-label" style="margin-bottom: 0px;">Удаление</label>
                 </div> 
               </div>
             </div>
       </template>
     </div>
-              <hr class="horizontal dark" />
+              <hr v-if="!isSmol" class="horizontal dark" />
 </template>
 
 <script>
@@ -31,6 +31,12 @@ export default {
     },
     checkboxed: {
       default: false
+    },
+    isEmbeddedFilter: {
+      default: false
+    },
+    isSmol: {
+      default: false
     }
    },
   methods: {
@@ -44,7 +50,11 @@ export default {
   computed: {
     fieldsC() {
       if (this.fields == null) {
-        return this.$store.state.roleStrc;
+        let fields = {};
+        for (let key in this.$store.state.roleStrc) {
+          fields[key] = "";
+        }
+        return fields;
       }
       else return this.fields;
     }

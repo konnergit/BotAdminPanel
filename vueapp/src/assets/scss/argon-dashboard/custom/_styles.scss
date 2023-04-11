@@ -18,3 +18,13 @@
 .form-check:not(.form-switch) .form-check-input[type=checkbox]:after {
     content: "\2713" !important;
 }
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}

@@ -10,6 +10,7 @@ import EntriesEdit from "../views/EntriesEdit.vue";
 import EntriesFilter from "../views/EntriesFilter.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
+import UserCreate from "../views/UserCreate.vue";
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: "/botactions",
     name: "Botactions",
     component: Botactions,
+  },
+  {
+    path: "/usercreate",
+    name: "UserCreate",
+    component: UserCreate,
   },
   {
     path: "/tables",

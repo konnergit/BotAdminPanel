@@ -1,19 +1,65 @@
 <template>
-  <div class="py-4 container-fluid">
+  <div class="py-4 container-fluid" style="">
+    <form class="card" @submit.prevent="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+              <ul>
+              <h5>Фильтры для базы знаний</h5>
+            <entry-item :isEmbeddedFilter="true" :isSmol="true"></entry-item>
+                                <argon-button
+                                              @click="filterEntries"
+                                              class="mt-4"
+                                              variant="gradient"
+                                              color="primary"
+                                              size="sm">Отфильтровать записи</argon-button>
+              </ul>
+            </div>
+        </div>
+    </div>
+  </form>
+  </div>
+  <div class="py-1 container-fluid">
       <form class="card" @submit.prevent="">
         <div class="row">
         <div class="col-md-12">
             <div class="card-body">
+              <Transition>
+              <div v-show="messageE" class="alert alert-danger" role="alert">
+                  {{ messageE }}
+              </div>
+            </Transition>
+            <Transition>
+              <div v-show="messageS" class="alert alert-success" role="alert">
+                  {{ messageS }}
+              </div>
+            </Transition>
+            <Transition>
+              <div v-show="messageE2" class="alert alert-danger" role="alert">
+                  {{ messageE2 }}
+              </div>
+            </Transition>
+            <Transition>
+              <div v-show="messageS2" class="alert alert-success" role="alert">
+                  {{ messageS2 }}
+              </div>
+            </Transition>
               <ul id="data-body">
+                <h5 style="padding-bottom: 1rem;">Редактирование записей</h5>
                   <entry-item v-for="item in pageData" :key="item.Fields.id" :fields="item.Fields" :checkboxed="true"></entry-item>
               </ul>
               <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
-                  >Применить изменения</argon-button>
+                  >Отправить изменения</argon-button>
             </div>
+
             <argon-pagination>
               <argon-pagination-item prev @click="goToPage(selected - 1)"/>
-              <argon-pagination-item v-for="index in totalPages" :key="index" :label="index.toString()" :active="(index === selected)?true:false" @click="goToPage(index)"/>
-              <!-- :active="(true)?true:false" -->
+              <!-- <argon-pagination-item v-for="index in totalPages" :key="index" :label="index.toString()" :active="(index === selected)?true:false" @click="goToPage(index)"/> -->
+              <argon-pagination-item :key="paginationItem1" :label="paginationItem1.toString()" :active="(paginationItem1 === selected) ? true : false" @click="goToPage(paginationItem1)"/>
+              <argon-pagination-item :key="paginationItem2" :label="paginationItem2.toString()" :active="(paginationItem2 === selected) ? true : false" @click="goToPage(paginationItem2)"/>
+              <argon-pagination-item :key="paginationItem3" :label="paginationItem3.toString()" :active="(paginationItem3 === selected) ? true : false" @click="goToPage(paginationItem3)"/>
+              <argon-pagination-item :key="paginationItem4" :label="paginationItem4.toString()" :active="(paginationItem4 === selected) ? true : false" @click="goToPage(paginationItem4)"/>
+              <argon-pagination-item :key="paginationItem5" :label="paginationItem5.toString()" :active="(paginationItem5 === selected) ? true : false" @click="goToPage(paginationItem5)"/>
               <argon-pagination-item next @click="goToPage(selected + 1)"/>
             </argon-pagination>
         </div>
@@ -40,6 +86,10 @@ export default {
     selected: 1,
     pageSize: 20,
     pageData: null,
+    messageE: "",
+    messageE2: "",
+    messageS: "",
+    messageS2: ""
     };
   },
   computed: {
@@ -47,7 +97,8 @@ export default {
       return this.$store.state.filterObj;
     },
     totalPages() {
-      return this.$store.state.totalPages;
+      //return this.$store.state.totalPages;
+      return 20;
     },
     roleSelected() {
       return this.$store.state.roleSelected;
@@ -58,7 +109,76 @@ export default {
     },
     roles() {
       return this.$store.state.auth.roles;
-    }
+    },
+    paginationItem1() {
+      if (this.totalPages <= 5) return 1;
+      else{
+
+        if (this.totalPages - this.selected >= 2) {
+          if (this.selected <= 3) return 1;
+          else return this.selected - 2; 
+        }
+        else if (this.totalPages - this.selected == 1) {
+          return this.selected - 3;
+        }
+        else return this.selected - 4;
+      }
+    },
+    paginationItem2() {
+      if (this.totalPages <= 5) return 2;
+      else{
+
+        if (this.totalPages - this.selected >= 2) {
+          if (this.selected <= 3) return 2;
+          else return this.selected - 1; 
+        }
+        else if (this.totalPages - this.selected == 1) {
+          return this.selected - 2;
+        }
+        else return this.selected - 3;
+      }
+    },
+    paginationItem3() {
+      if (this.totalPages <= 5) return 3;
+      else{
+
+        if (this.totalPages - this.selected >= 2) {
+          if (this.selected <= 3) return 3;
+          else return this.selected; 
+        }
+        else if (this.totalPages - this.selected == 1) {
+          return this.selected - 1;
+        }
+        else return this.selected - 2;
+      }
+    },
+    paginationItem4() {
+      if (this.totalPages <= 5) return 4;
+      else{
+
+        if (this.totalPages - this.selected >= 2) {
+          if (this.selected <= 3) return 4;
+          else return this.selected + 1; 
+        }
+        else if (this.totalPages - this.selected == 1) {
+          return this.selected;
+        }
+        else return this.selected - 1;
+      }
+    },
+    paginationItem5() {
+      if (this.totalPages <= 5) return 5;
+      else{
+        if (this.totalPages - this.selected >= 2) {
+          if (this.selected <= 3) return 5;
+          else return this.selected + 2; 
+        }
+        else if (this.totalPages - this.selected == 1) {
+          return this.selected + 1;
+        }
+        else return this.selected;
+      }
+    },
   },
   components: { ArgonButton, EntryItem, ArgonPagination, ArgonPaginationItem },
   methods: {
@@ -78,13 +198,6 @@ export default {
             //console.log(this.pageData);
           }
         })
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          }
-        });
       }
     },
     sendChanges() {
@@ -127,20 +240,79 @@ export default {
       //console.log(editObj);
       if (deleteObj.length > 0 ) {
         UserService.deleteServiceData(deleteObj)
-        .then( 
-          (response) => {
-            console.log(response);
-        });
+        .then(
+            () => {
+              this.messageS2 = "Операция удаления прошла успешно!";
+              setTimeout(() => this.messageS2 = "", 2500);
+            })
+          .catch(error => {
+            if (error.response) {
+              this.messageE2 = "Произошла ошибка с кодом " + error.response.status;
+              console.log(error.response.data);
+            } else if (error.request) {
+              this.messageE2 = "Произошла ошибка:" + error.request;
+              console.log(error.request);
+            } else {
+              console.log('Error', error.message);
+              this.messageE2 = "Произошла ошибка:" + error.message;
+            }
+            setTimeout(() => this.messageE2 = "", 2500);
+          });
       }
 
       if (editObj.length > 0) {
         UserService.editServiceData(editObj)
-        .then( 
-          (response) => {
-            console.log(response);
-        });
+        .then(
+            () => {
+              this.messageS = "Операция редактирования прошла успешно!";
+              setTimeout(() => this.messageS = "", 2500);
+            })
+          .catch(error => {
+            if (error.response) {
+              this.messageE = "Произошла ошибка с кодом " + error.response.status;
+              console.log(error.response.data);
+            } else if (error.request) {
+              this.messageE = "Произошла ошибка:" + error.request;
+              console.log(error.request);
+            } else {
+              console.log('Error', error.message);
+              this.messageE = "Произошла ошибка:" + error.message;
+            }
+            setTimeout(() => this.messageE = "", 2500);
+          });
       }
-    }
+
+      document.querySelectorAll(".delete_checkbox").forEach(function (node) {
+        node.checked = false;
+      });
+
+      window.scrollTo({
+        top: 0,
+        left: 0
+      })
+    },
+
+    filterEntries() {
+        let pageData = null;
+        let serName = this.roleName;
+
+        document.querySelectorAll(".data-row-filter").forEach(function(node) {
+          let field = {};
+          for (const child of node.children) {
+                let entryKey = child.children[0].textContent; 
+                let entryValue = child.children[1].value; 
+                field[entryKey] = entryValue;
+            }
+            pageData = field;
+        });
+
+        let data = { ServiceName:serName, Fields:pageData };
+
+        this.$store.dispatch("setFilterObj", data);
+        this.goToPage(1);
+        //console.log(this.filterObj);
+
+    },
   },
 
   mounted() {
@@ -165,10 +337,10 @@ export default {
           //console.log(fieldObj);
           this.$store.dispatch("setFilterObj", { ServiceName:this.roleName, Fields:fieldObj });
           this.goToPage(1);
+          console.log(this.filterObj)
         });
     }
     else this.$router.push('/botlist');
-    //console.log(this.filterObj);
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";

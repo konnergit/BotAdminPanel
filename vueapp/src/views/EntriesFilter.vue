@@ -4,12 +4,13 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
+              <h5>Выберите фильтр для запроса к базе знаний</h5>
                   <entry-item></entry-item>
                                 <argon-button
                                               @click="filterEntries"
                                               class="mt-4"
                                               variant="gradient"
-                                              color="success"
+                                              color="primary"
                                               size="lg">Найти записи в базе знаний</argon-button>
             </div>
           </div>

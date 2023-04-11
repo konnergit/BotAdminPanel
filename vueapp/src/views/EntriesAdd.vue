@@ -4,13 +4,23 @@
         <div class="col-md-12">
           <form class="card" @submit.prevent="">
             <div class="card-body">
+              <Transition>
+              <div v-show="messageE" class="alert alert-danger" role="alert">
+                  {{ messageE }}
+              </div>
+            </Transition>
+            <Transition>
+              <div v-show="messageS" class="alert alert-success" role="alert">
+                  {{ messageS }}
+              </div>
+            </Transition>
               <ul id="data-body">
                   <entry-item v-for="element in elements" :is="element.type" :key="element.id"></entry-item>
               </ul>
-              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-info btn-lg null null mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
+              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-warning btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
                   >Добавить строку</argon-button
                 >
-              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-success btn-lg null null mt-4" style="max-width: 300px;" type="submit" @click="commitChanges"
+              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-info btn-lg mt-4" style="max-width: 300px;" type="submit" @click="commitChanges"
                   >Применить изменения</argon-button
                 >
             </div>
@@ -35,7 +45,9 @@ export default {
   name: "entries-add",
   data() {
     return {
-      elements: []
+      elements: [],
+      messageE: "",
+      messageS: ""
     };
   },
   computed: {
@@ -63,7 +75,26 @@ export default {
       });
 
       //console.log(data);
-      UserService.addServiceData(pageData);
+      UserService.addServiceData(pageData)
+      .then(
+        (response) => {
+          this.messageS = "Операция добавления записей прошла успешно!";
+          setTimeout(() => this.messageS = "", 2500);
+        })
+      .catch(error => {
+        if (error.response) {
+          this.messageE = "Произошла ошибка с кодом " + error.response.status;
+          console.log(error.response.data);
+          setTimeout(() => this.messageE = "", 2500);
+        } else if (error.request) {
+          this.messageE = "Произошла ошибка:" + error.request;
+          console.log(error.request);
+        } else {
+          console.log('Error', error.message);
+          this.messageE = "Произошла ошибка:" + error.message;
+        }
+        setTimeout(() => this.messageE = "", 2500);
+      });
     }
   },
   components: { ArgonButton, EntryItem },

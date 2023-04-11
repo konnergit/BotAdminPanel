@@ -35,7 +35,7 @@
                                        name="password" />
                                 <ErrorMessage name="password" class="error-feedback" />
                             </div>
-                            <argon-switch id="rememberMe">Remember me</argon-switch>
+                            <!--<argon-switch id="rememberMe">Remember me</argon-switch>-->
                             <!--<div class="mb-3" v-if="errorFlag">
         <argon-alert color="danger" dismissible>
             <strong>Wrong login or password!</strong>
@@ -46,7 +46,7 @@
                                 <argon-button type="submit"
                                               class="mt-4"
                                               variant="gradient"
-                                              color="success"
+                                              color="info"
                                               fullWidth
                                               size="lg">Sign in</argon-button>
                             </div>
@@ -57,7 +57,7 @@
                             </div>
                         </Form>
                 </div>
-                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                <!--<div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
                     Don't have an account?
                     <a
@@ -65,7 +65,7 @@
                       class="text-success text-gradient font-weight-bold"
                     >Sign up</a>
                   </p>
-                </div>
+                </div>-->
               </div>
             </div>
             <div
@@ -76,10 +76,10 @@
                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
           background-size: cover;"
               >
-                <span class="mask bg-gradient-success opacity-6"></span>
-                <h4
+                <span class="mask bg-gradient-danger opacity-5"></span>
+                <h
                   class="mt-5 text-white font-weight-bolder position-relative"
-                >"Attention is the new currency"</h4>
+                >"Attention is the new currency"</h>
                 <p
                   class="text-white position-relative"
                 >The more effortless the writing looks, the more effort the writer actually put into the process.</p>
@@ -129,7 +129,7 @@ export default {
                 return this.$store.state.auth.status.loggedIn;
             },
             getRoles() {
-                return this.$store.state.auth.roles ? this.$store.state.auth.roles : null;
+                return this.$store.state.auth.roles;
             },
         },
   methods: {
@@ -161,7 +161,7 @@ export default {
     created() {
         if (this.loggedIn) {
             if (this.getRoles) {
-                if (this.getRoles().length == 1) {
+                if (this.getRoles.length == 1) {
                     this.$router.push('/botactions');
                 }
             }

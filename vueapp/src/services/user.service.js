@@ -30,12 +30,11 @@ class UserService {
     }
 
     addServiceData(data) {
-        return axios.post(API_URL + 'Service/data', data, { headers: authHeader() })
-        .then(
-            (response) => {
-                console.log(response.data);
-            }
-        );
+        return axios.post(API_URL + 'Service/data', data, { headers: authHeader() });
+    }
+
+    addServiceDataFile(data) {
+        return axios.post(API_URL + 'Service/csv', data, { headers: authHeader()});
     }
 
     getServiceData(data, pageSize, pageNumber) {
@@ -53,6 +52,7 @@ class UserService {
     deleteServiceData(data) {
         return axios.delete(API_URL + 'service/data', { data: data, headers: authHeader() });
     }
+
 }
 
 export default new UserService();
