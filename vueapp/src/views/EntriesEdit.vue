@@ -11,7 +11,7 @@
                                               @click="filterEntries"
                                               class="mt-4"
                                               variant="gradient"
-                                              color="primary"
+                                              color="warning"
                                               size="sm">Отфильтровать записи</argon-button>
               </ul>
             </div>
@@ -47,9 +47,9 @@
               <ul id="data-body">
                 <h5 style="padding-bottom: 1rem;">Редактирование записей</h5>
                   <entry-item v-for="item in pageData" :key="item.Fields.id" :fields="item.Fields" :checkboxed="true"></entry-item>
-              </ul>
-              <argon-button color="success" size="sm" class="ms-auto" @click="sendChanges"
+                  <argon-button color="dark" size="sm" class="ms-auto" @click="sendChanges"
                   >Отправить изменения</argon-button>
+              </ul>
             </div>
 
             <argon-pagination>

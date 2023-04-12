@@ -16,13 +16,13 @@
             </Transition>
               <ul id="data-body">
                   <entry-item v-for="element in elements" :is="element.type" :key="element.id"></entry-item>
-              </ul>
-              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-warning btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
+                  <argon-button color="warning" size="sm" class="btn mb-0 bg-gradient-warning btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
                   >Добавить строку</argon-button
                 >
-              <argon-button color="success" size="sm" class="btn mb-0 bg-gradient-info btn-lg mt-4" style="max-width: 300px;" type="submit" @click="commitChanges"
+                <argon-button color="dark" size="sm" class="btn mb-0 btn-lg mt-4" style="max-width: 300px;" type="submit" @click="commitChanges"
                   >Применить изменения</argon-button
                 >
+              </ul>
             </div>
           </form>
         </div>

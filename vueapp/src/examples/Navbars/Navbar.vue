@@ -20,18 +20,6 @@
           class="pe-md-3 d-flex align-items-center"
           :class="this.$store.state.isRTL ? 'me-md-auto' : 'ms-md-auto'"
         >
-          <div class="input-group">
-            <span class="input-group-text text-body">
-              <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-            <input
-              type="text"
-              class="form-control"
-              :placeholder="
-                this.$store.state.isRTL ? 'أكتب هنا...' : 'Type here...'
-              "
-            />
-          </div>
         </div>
         <ul class="navbar-nav justify-content-end">
             <li v-if="loggedIn" class="nav-item d-flex align-items-center">
@@ -42,7 +30,7 @@
                     <i class="fa fa-user"
                        :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-2'"></i>
                     <span v-if="this.$store.state.isRTL" class="d-sm-inline d-none">يسجل دخول</span>
-                    <span v-else class="d-sm-inline d-none">Log out</span>
+                    <span v-else class="d-sm-inline d-none">Выйти из системы</span>
                 </a>
             </li>
             <li v-else class="nav-item d-flex align-items-center">

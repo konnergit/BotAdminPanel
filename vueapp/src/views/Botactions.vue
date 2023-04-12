@@ -14,13 +14,13 @@
                   {{ messageS }}
               </div>
             </Transition>
-            <argon-button color="light" size="lg" class="btn mb-0 btn-gradient-dark btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addEntries"
+            <argon-button color="dark" size="lg" class="btn mb-0 btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addEntries"
                   >Добавить запись</argon-button
                 >
-                <argon-button color="success" size="lg" class="btn mb-0 bg-gradient-primary btn-lg  mt-4" style="max-width: 300px; margin-right: 2rem;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                <argon-button color="dark" size="lg" class="btn mb-0 btn-lg  mt-4" style="max-width: 300px; margin-right: 2rem;" data-bs-toggle="modal" data-bs-target="#exampleModal"
                   >Добавить из файла</argon-button
                 >
-            <argon-button color="info" size="lg" class="btn mb-0 bg-gradient-info btn-lg mt-4" style="max-width: 300px;" @click="editEntries"
+            <argon-button color="dark" size="lg" class="btn mb-0 btn-lg mt-4" style="max-width: 300px;" @click="editEntries"
                   >Редактировать записи</argon-button
                 >
                 

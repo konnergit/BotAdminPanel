@@ -51,7 +51,7 @@
       <li class="nav-item" v-for="(item, index) in roles" :key="index" v-show="toggleEditFlag">
         <sidenav-item
           :url="'/entriesedit/' + index"
-          :class="index === this.$store.state.roleSelected ? 'active' : ''"
+          :class="index === this.$store.state.roleSelected && getRoute() === 'EntriesEdit' ? 'active' : ''"
           :navText="item"
           :isSubcat="true"
           :isPersEdit="true"

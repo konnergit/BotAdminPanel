@@ -36,7 +36,7 @@
                   <input class="form-control" type="text" v-model="password" />
                 </div>
               </div>
-              <argon-button color="info" size="md" class="ms-auto mt-4" @click="sendChanges"
+              <argon-button color="dark" size="md" class="ms-auto mt-4" @click="sendChanges"
                   >Создать пользователя</argon-button>
                 </div>
             </div>  
@@ -47,7 +47,6 @@
   </template>
 
 <script>
-import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import userService from "@/services/user.service";
 
@@ -62,7 +61,7 @@ export default {
       messageS: ""
     };
   },
-  components: { ArgonInput, ArgonButton },
+  components: { ArgonButton },
   methods: {
     sendChanges() {
         //alert("Пользователь создан успешно!");
