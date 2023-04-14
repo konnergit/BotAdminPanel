@@ -21,10 +21,21 @@ namespace webapi.Controllers.Implementations
         {
             return Ok();
         }
+        [HttpPost("userTechRole")]
+        public async Task<IActionResult> AddTechRoleToUser(string login, string role)
+        {
+            return Ok();
+        }
         [HttpGet("allRoles")]
         public IActionResult GetAvailiableRoles()
         {
             var data = Enum.GetValues(typeof(UserAuthRoles));
+            return Ok(data);
+        }
+        [HttpGet("allTechRoles")]
+        public IActionResult GetAvailiableTechRoles()
+        {
+            var data = Enum.GetValues(typeof(TechAuthRoles));
             return Ok(data);
         }
         [HttpGet("userRole")]

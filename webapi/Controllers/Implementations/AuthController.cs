@@ -21,6 +21,16 @@ namespace webapi.Controllers.Implementations
         {
             _configuration = configuration;
         }
+        [HttpPost("user")]
+        public async Task<IActionResult> CreateUser([FromBody] UserData user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Хули тут так мало?!");
+            }
+            return Ok();
+        }
+
 
         [HttpPost("login")]
         public ActionResult<object> Authenticate([FromBody] LoginRequest login)
