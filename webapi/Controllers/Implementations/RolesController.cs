@@ -50,7 +50,7 @@ namespace webapi.Controllers.Implementations
             var data = Enum.GetNames(typeof(UserAuthRoles));
             return Ok(data);
         }
-        [HttpGet("myRoles")]
+        [HttpGet("myTechRoles")]
         public IActionResult GetSelfTechRoles()
         {
             var data = Enum.GetNames(typeof(TechAuthRoles));
