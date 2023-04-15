@@ -9,12 +9,20 @@ class UserService {
         return axios.post(API_URL + 'auth/user', data, { headers: authHeader() });
     }
 
+    editUser(data) {
+        return axios.patch(API_URL + 'auth/user', data, { headers: authHeader() });
+    }
+
     getRolesUser(data) {
         return axios.get(API_URL + 'roles/user', { params: data, headers: authHeader() });
     }
 
-    getRolesAvailable() {
-        return axios.get(API_URL + 'roles/availiableroles', { headers: authHeader() });
+    getAllTechRoles() {
+        return axios.get(API_URL + 'roles/alltechroles', { headers: authHeader() });
+    }
+
+    getAllRoles() {
+        return axios.get(API_URL + 'roles/allroles', { headers: authHeader() });
     }
 
     addRoleUser(data) {

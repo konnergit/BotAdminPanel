@@ -31,7 +31,18 @@
         <sidenav-item
           url="/UserCreate"
           :class="getRoute() === 'UserCreate' ? 'active' : ''"
-          :navText="'Создание пользователя'"
+          :navText="'Создать пользователя'"
+        >
+          <template v-slot:icon>
+            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item">
+        <sidenav-item
+          url="/UserEdit"
+          :class="getRoute() === 'UserEdit' ? 'active' : ''"
+          :navText="'Изменить пользователя'"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>

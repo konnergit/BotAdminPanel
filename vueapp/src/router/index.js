@@ -1,14 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Botlist from "../views/Botlist.vue";
 import Botactions from "../views/Botactions.vue";
-import Tables from "../views/Tables.vue";
-import Billing from "../views/Billing.vue";
-import VirtualReality from "../views/VirtualReality.vue";
-import RTL from "../views/Rtl.vue";
 import EntriesAdd from "../views/EntriesAdd.vue";
 import EntriesEdit from "../views/EntriesEdit.vue";
 import EntriesFilter from "../views/EntriesFilter.vue";
-import Signup from "../views/Signup.vue";
+import UserEdit from "../views/UserEdit.vue";
 import Signin from "../views/Signin.vue";
 import UserCreate from "../views/UserCreate.vue";
 
@@ -39,26 +35,6 @@ const routes = [
     component: UserCreate,
   },
   {
-    path: "/tables",
-    name: "Tables",
-    component: Tables,
-  },
-  {
-    path: "/billing",
-    name: "Billing",
-    component: Billing,
-  },
-  {
-    path: "/virtual-reality",
-    name: "Virtual Reality",
-    component: VirtualReality,
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL",
-    component: RTL,
-  },
-  {
     path: "/entriesedit/:id",
     name: "EntriesEdit",
     component: EntriesEdit,
@@ -72,11 +48,6 @@ const routes = [
     path: "/signin",
     name: "Signin",
     component: Signin,
-  },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
   },
   
 ];
