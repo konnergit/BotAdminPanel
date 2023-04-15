@@ -30,6 +30,16 @@ class AuthService {
             });
     }
 
+    getTechRolesSelf() {
+        return axios
+            .get(API_URL + 'Roles/myTechRoles', { headers: authHeader() })
+            .then(response => { 
+                localStorage.setItem('techRoles', JSON.stringify(response.data));
+                //console.log(response);
+                return response.data;
+            });
+    }
+
     logout() {
         localStorage.removeItem('user');
         localStorage.removeItem('roles');

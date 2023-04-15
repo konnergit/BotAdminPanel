@@ -4,7 +4,6 @@ import Botactions from "../views/Botactions.vue";
 import EntriesAdd from "../views/EntriesAdd.vue";
 import EntriesEdit from "../views/EntriesEdit.vue";
 import EntriesFilter from "../views/EntriesFilter.vue";
-import UserEdit from "../views/UserEdit.vue";
 import Signin from "../views/Signin.vue";
 import UserCreate from "../views/UserCreate.vue";
 

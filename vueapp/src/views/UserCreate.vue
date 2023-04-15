@@ -36,6 +36,25 @@
                   <input class="form-control" type="text" v-model="password" />
                 </div>
               </div>
+
+              <div class="row mt-4">
+                <div class="col-md-2">
+                    <span class="form-control-label"> Боты пользователя</span>
+                    <div v-for="(item, index) in allRoles" :key="index" class="form-check" style="position: relative; text-align: left; margin-top: 1rem; ">
+                        <input class="form-check-input userrole-checkbox" type="checkbox" />
+                        <label class="custom-control-label" style="margin-bottom: 0px;">{{ item }}</label>
+                    </div> 
+                </div>
+
+                <div class="col-md-2">
+                    <span class="form-control-label"> Роли пользователя</span>
+                    <div v-for="(item, index) in allTechRoles" :key="index" class="form-check" style="position: relative; text-align: left; margin-top: 1rem; ">
+                        <input class="form-check-input techrole-checkbox" type="checkbox" />
+                        <label class="custom-control-label" style="margin-bottom: 0px;">{{ item }}</label>
+                    </div> 
+                </div>
+              </div>
+
               <argon-button color="dark" size="md" class="ms-auto mt-4" @click="sendChanges"
                   >Создать пользователя</argon-button>
                 </div>
@@ -60,8 +79,8 @@ export default {
       password: null,
       messageE: "",
       messageS: "",
-      allTechRoles: ['Operbot', 'Wifi', 'SomeOtherBot', 'AnotherOne'],
-      allRoles: ['Admin', 'Superadmin', 'User'],
+      allTechRoles: [],
+      allRoles: [],
     };
   },
   components: { ArgonButton },
@@ -69,7 +88,24 @@ export default {
     sendChanges() {
         //alert("Пользователь создан успешно!");
         if (this.username && this.password) {
-            userService.createUser({ username:this.username, password:this.password } )
+            let techRoles = [];
+            let roles = [];
+            document.querySelectorAll(".techrole-checkbox").forEach((node) => {
+              if (node.checked) {
+                //console.log();
+                techRoles.push(node.nextSibling.textContent);
+              }
+            });
+            document.querySelectorAll(".userrole-checkbox").forEach((node) => {
+              if (node.checked) {
+                //console.log();
+                roles.push(node.nextSibling.textContent);
+              }
+            });
+            console.log(techRoles);
+            console.log(roles);
+
+            userService.createUser({ Name:this.username, password:this.password, TechRoles:techRoles, UserRoles:roles } )
             .then(
             () => {
               this.messageS = "Создание пользователя прошло успешно!";
@@ -97,29 +133,29 @@ export default {
   },
   created() {
     userService.getAllTechRoles()
-    // .then(
-    // (response) => {
-    //     this.techRoles = response.data;
-    // })
+    .then(
+    (response) => {
+        this.techRoles = response.data;
+    })
     .catch(error => {
     if (error.response) {
-        this.messageE = "Произошла ошибка в запросе списка ботов с кодом " + error.response.status;
+        this.messageE = "Произошла ошибка в запросе списка ролей с кодом " + error.response.status;
         console.log(error.response.data);
     } else if (error.request) {
-        this.messageE = "Произошла ошибка в запросе списка ботов:" + error.request;
+        this.messageE = "Произошла ошибка в запросе списка ролей:" + error.request;
         console.log(error.request);
     } else {
         console.log('Error', error.message);
-        this.messageE = "Произошла ошибка в запросе списка ботов:" + error.message;
+        this.messageE = "Произошла ошибка в запросе списка ролей:" + error.message;
     }
     setTimeout(() => this.messageE = "", 2500);
     });
 
     userService.getAllRoles()
-    // .then(
-    // (response) => {
-    //     this.roles = response.data;
-    // })
+    .then(
+    (response) => {
+        this.roles = response.data;
+    })
     .catch(error => {
     if (error.response) {
         this.messageE = "Произошла ошибка в запросе списка ботов с кодом " + error.response.status;

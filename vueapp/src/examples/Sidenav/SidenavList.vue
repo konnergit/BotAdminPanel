@@ -27,22 +27,11 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li v-show="isAdmin" class="nav-item">
         <sidenav-item
           url="/UserCreate"
           :class="getRoute() === 'UserCreate' ? 'active' : ''"
           :navText="'Создать пользователя'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-      <li class="nav-item">
-        <sidenav-item
-          url="/UserEdit"
-          :class="getRoute() === 'UserEdit' ? 'active' : ''"
-          :navText="'Изменить пользователя'"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -121,7 +110,11 @@ export default {
     };
   },
   computed: {
-    roles() { return this.$store.state.auth.roles;}
+    roles() { return this.$store.state.auth.roles;},
+    isAdmin() { 
+      if (this.$store.state.auth.techRoles.includes('Admin') || this.$store.state.auth.techRoles.includes('Supervisor')) return true;
+      else return false;
+    }
   },
   methods: {
     filterEntries() {
