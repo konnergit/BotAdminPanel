@@ -111,9 +111,10 @@ export default {
   },
   computed: {
     roles() { return this.$store.state.auth.roles;},
-    isAdmin() { 
-      if (this.$store.state.auth.techRoles.includes('Admin') || this.$store.state.auth.techRoles.includes('Supervisor')) return true;
-      else return false;
+      isAdmin() {
+          if (this.$store.state.auth.techRoles) { if (this.$store.state.auth.techRoles.includes('Admin') || this.$store.state.auth.techRoles.includes('Supervisor')) return true; else return false; }
+      
+      
     }
   },
   methods: {
@@ -156,7 +157,7 @@ export default {
   },
   watch: {
   '$store.state.drawer': function() {
-    console.log(this.$store.state.roleSelected)
+    //console.log(this.$store.state.roleSelected)
   }
 }
 };

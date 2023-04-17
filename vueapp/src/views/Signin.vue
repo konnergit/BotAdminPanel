@@ -73,16 +73,15 @@
             >
               <div
                 class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-          background-size: cover;"
+                style="background-image: url('background.jpg'); max-width:968px; max-height:504px;"
               >
-                <span class="mask bg-gradient-danger opacity-5"></span>
+                <!--<span class="mask bg-gradient-danger opacity-5"></span>
                 <h
                   class="mt-5 text-white font-weight-bolder position-relative"
                 >"Attention is the new currency"</h>
                 <p
                   class="text-white position-relative"
-                >The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                >The more effortless the writing looks, the more effort the writer actually put into the process.</p>-->
               </div>
             </div>
           </div>
@@ -137,7 +136,7 @@ export default {
               () => {
                 
                           if (this.$store.state.auth.roles) {
-                              console.log(this.getRoles);
+
                               if (this.getRoles.length == 1) {
                                   this.$router.push("/botactions");
                               }

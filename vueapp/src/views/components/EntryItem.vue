@@ -37,6 +37,9 @@ export default {
     },
     isSmol: {
       default: false
+      },
+    isAddFields: {
+        default: false
     }
    },
   methods: {
@@ -51,7 +54,8 @@ export default {
     fieldsC() {
       if (this.fields == null) {
         let fields = {};
-        for (let key in this.$store.state.roleStrc) {
+          for (let key in this.$store.state.roleStrc) {
+              if (key == 'Id') fields[key] = "123";
           fields[key] = "";
         }
         return fields;
@@ -59,9 +63,6 @@ export default {
       else return this.fields;
     }
   },
-  created() {
-    //console.log(this.fieldsC)
-  }
 }
 
 </script>

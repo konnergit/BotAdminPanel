@@ -92,18 +92,15 @@ export default {
             let roles = [];
             document.querySelectorAll(".techrole-checkbox").forEach((node) => {
               if (node.checked) {
-                //console.log();
                 techRoles.push(node.nextSibling.textContent);
               }
             });
             document.querySelectorAll(".userrole-checkbox").forEach((node) => {
               if (node.checked) {
-                //console.log();
                 roles.push(node.nextSibling.textContent);
               }
             });
-            console.log(techRoles);
-            console.log(roles);
+
 
             userService.createUser({ Name:this.username, password:this.password, TechRoles:techRoles, UserRoles:roles } )
             .then(
@@ -135,7 +132,7 @@ export default {
     userService.getAllTechRoles()
     .then(
     (response) => {
-        this.techRoles = response.data;
+        this.allTechRoles = response.data;
     })
     .catch(error => {
     if (error.response) {
@@ -154,7 +151,7 @@ export default {
     userService.getAllRoles()
     .then(
     (response) => {
-        this.roles = response.data;
+        this.allRoles = response.data;
     })
     .catch(error => {
     if (error.response) {

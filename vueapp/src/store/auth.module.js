@@ -1,11 +1,12 @@
 import AuthService from '../services/auth.service';
 
 const user = JSON.parse(localStorage.getItem('user'));
+const username = JSON.parse(localStorage.getItem('username'));
 const roles = JSON.parse(localStorage.getItem('roles'));
 const techRoles = JSON.parse(localStorage.getItem('techRoles'));
 const initialState = user
-    ? { status: { loggedIn: true }, user, roles, techRoles }
-    : { status: { loggedIn: false }, user: null, roles: null };
+    ? { status: { loggedIn: true }, user, username, roles, techRoles }
+    : { status: { loggedIn: false }, user: null, username: null, roles: null, techRoles: null };
 
 export const auth = {
     namespaced: true,
@@ -13,9 +14,10 @@ export const auth = {
     actions: {
         login({ commit, dispatch }, user) {
             return AuthService.login(user).then(
-                user => {
-                    commit('loginSuccess', user);
-                    return user
+                (data) => {
+                    commit('loginSuccess', data.data);
+                    commit('setUsername', data.username);
+                    return data.data
                 },
                 error => {
                     commit('loginFailure');
@@ -76,6 +78,9 @@ export const auth = {
             state.status.loggedIn = true;
             state.user = user;
         },
+        setUsername(state, username) {
+            state.username = username;
+        },
         getRolesSuccess(state, roles) {      
             state.roles = roles;
         },
@@ -85,11 +90,16 @@ export const auth = {
         loginFailure(state) {
             state.status.loggedIn = false;
             state.user = null;
+            state.roles = null;
+            state.techRoles = null;
+            state.username = null;
         },
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
             state.roles = null;
+            state.techRoles = null;
+            state.username = null;
         },
         // registerSuccess(state) {
         //     state.status.loggedIn = false;

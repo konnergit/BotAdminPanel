@@ -74,11 +74,9 @@ export default {
           let techRoles = [];
           document.querySelectorAll(".techrole-checkbox").forEach((node) => {
             if (node.checked) {
-              //console.log();
               techRoles.push(node.nextSibling.textContent);
             }
           });
-          console.log(techRoles);
 
           userService.editUser({ Name:this.username, TechRoles:techRoles } )
           .then(
@@ -107,7 +105,6 @@ export default {
     }
   },
   created() {
-    console.log(this.allTechRoles);
     userService.getAllTechRoles()
     // .then(
     // (response) => {

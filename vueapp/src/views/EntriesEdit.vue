@@ -186,7 +186,6 @@ export default {
       if(index > 0 && index <= this.totalPages)
       {
         let pageSize = this.pageSize;
-        //console.log(this.filterObj);
 
         UserService.getServiceData(this.filterObj, pageSize, index)
         .then(response => {
@@ -195,7 +194,6 @@ export default {
             this.pageData = response.data.Fields;
             this.$store.dispatch("setTotalPages", Math.ceil(response.data.TotalCount/this.pageSize));
             this.selected = index;
-            //console.log(this.pageData);
           }
         })
       }
@@ -220,8 +218,6 @@ export default {
         pageCData.push({ field, deleteFlag });
       });
 
-      //console.log(pageCData);
-      //console.log(this.pageData);
       for (const [key] of Object.entries(pageCData)) {
         if (pageCData[key].deleteFlag) {
           deleteObj.push({ Fields:pageCData[key].field, serviceName });
@@ -236,8 +232,6 @@ export default {
         }
       } 
 
-      //console.log(deleteObj);
-      //console.log(editObj);
       if (deleteObj.length > 0 ) {
         UserService.deleteServiceData(deleteObj)
         .then(
@@ -321,8 +315,6 @@ export default {
   },
   // beforeRouteEnter (to, from, next) {
   //   next(vm => {
-  //     console.log(vm.roleSelected);
-  //     console.log(vm.$route.params.name);
   //     if (vm.roleSelected == null || vm.filterObj == null) vm.$router.push('/botlist');
   //   })
   // },
@@ -334,7 +326,6 @@ export default {
           for (const key in this.roleStrc) {
             fieldObj[key] = "";
           }
-          //console.log(fieldObj);
           this.$store.dispatch("setFilterObj", { ServiceName:this.roleName, Fields:fieldObj });
           this.goToPage(1);
           console.log(this.filterObj)

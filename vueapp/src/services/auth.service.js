@@ -14,9 +14,10 @@ class AuthService {
             .then(response => {
                 if (response.data.loginResponse.token) {
                     localStorage.setItem('user', JSON.stringify(response.data));
+                    localStorage.setItem('username', JSON.stringify(user.username));
                 }
 
-                return response.data;
+                return { data:response.data, username:user.username };
             });
     }
 
@@ -43,6 +44,7 @@ class AuthService {
     logout() {
         localStorage.removeItem('user');
         localStorage.removeItem('roles');
+        localStorage.removeItem('techRoles');
         
     }
 

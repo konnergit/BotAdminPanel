@@ -103,7 +103,11 @@ export default {
   computed: {
     getRole() { return this.$store.state.roleSelected; },
     getRoleName() {return this.$store.state.roleName; },
-    getStrc() { return this.$store.state.roleStrc; },
+      getStrc() {
+          let roleStrc = this.$store.state.roleStrc;
+          delete roleStrc["Id"];
+          return roleStrc;
+      },
     getRoles() { return this.$store.state.auth.roles;}
   },
   //beforeRouteEnter (to, from, next) {
@@ -126,32 +130,37 @@ export default {
      handleFileUpload() {
       this.file = this.$refs.file.files[0];
 
-      const reader = new FileReader();
+         const reader = new FileReader();
 
-      reader.readAsText(this.file);
+         if (this.file) {
+             reader.readAsText(this.file);
 
-      reader.onload = () => {
-        this.uploaded = true;
-        let res = reader.result;
-        this.csvStrc = res.substring(0, res.indexOf("\r")).split(';');
-        //console.log(this.csvStrc); // contains the file content as a string
-      };
+             reader.onload = () => {
+                 this.uploaded = true;
+                 let res = reader.result;
+                 this.csvStrc = res.substring(0, res.indexOf("\r")).split(';');
+                 //console.log(this.csvStrc); // contains the file content as a string
+             };
 
-      reader.onerror = () => {
-        console.log(reader.error);
-      };
+             reader.onerror = () => {
+                 console.log(reader.error);
+             };
+         }
+
+      
     },
     sendFile() {
       const reader = new FileReader();
       let RefillIsRequired = true;
 
+        if (this.file) { 
       reader.readAsDataURL(this.file);
 
       reader.onload = () => {
         let compareObj = {};
         let strcFields = [];
         let fileFields = [];
-        document.querySelectorAll('.strc-field').forEach(function(node) {
+          document.querySelectorAll('.strc-field').forEach(function (node) {
           strcFields.push(node.value);
         });
         document.querySelectorAll('.file-field').forEach(function(node) {
@@ -183,7 +192,7 @@ export default {
             }
             setTimeout(() => this.messageE = "", 2500);
           });
-         
+        }
       };
 
       reader.onerror = () => {

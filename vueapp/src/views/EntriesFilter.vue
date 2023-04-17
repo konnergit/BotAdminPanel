@@ -63,7 +63,6 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (vm.getSerName == null) vm.$router.push('/botlist');
-      //console.log(this.filterObj);
     })
   },
   beforeMount() {

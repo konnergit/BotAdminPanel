@@ -29,19 +29,19 @@ namespace webapi.Controllers.Implementations
         [HttpGet("allRoles")]
         public IActionResult GetAvailiableRoles()
         {
-            var data = Enum.GetValues(typeof(UserAuthRoles));
+            var data = Enum.GetNames(typeof(UserAuthRoles));
             return Ok(data);
         }
         [HttpGet("allTechRoles")]
         public IActionResult GetAvailiableTechRoles()
         {
-            var data = Enum.GetValues(typeof(TechAuthRoles));
+            var data = Enum.GetNames(typeof(TechAuthRoles));
             return Ok(data);
         }
         [HttpGet("userRole")]
         public async Task<IActionResult> GetRolesOfUser(string username)
         {
-            var data = Enum.GetValues(typeof(TechAuthRoles));
+            var data = Enum.GetNames(typeof(TechAuthRoles));
             return Ok(data);
         }
         [HttpGet("myRoles")]

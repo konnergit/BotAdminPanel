@@ -15,7 +15,7 @@
               </div>
             </Transition>
               <ul id="data-body">
-                  <entry-item v-for="element in elements" :is="element.type" :key="element.id"></entry-item>
+                  <entry-item v-for="element in elements" :is="element.type" :key="element.id" :isAddFields="true"></entry-item>
                   <argon-button color="warning" size="sm" class="btn mb-0 bg-gradient-warning btn-lg mt-4" style="max-width: 300px; margin-right: 2rem;" @click="addField"
                   >Добавить строку</argon-button
                 >
@@ -58,7 +58,6 @@ export default {
   methods: {
     addField() {
       this.elements.push({type: 'entry-field'});
-      //console.log(this.elements);
     },
     commitChanges() {
       let serviceName = this.$store.state.roleName;
@@ -70,11 +69,10 @@ export default {
             let entryKey = child.children[0].textContent; 
             let entryValue = child.children[1].value; 
             field[entryKey] = entryValue;
-        }
-        pageData.push({ serviceName, Fields:field });
+          }
+        pageData = { serviceName, Fields:field };
       });
 
-      //console.log(data);
       UserService.addServiceData(pageData)
       .then(
         () => {
@@ -109,7 +107,6 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (!vm.getStrc) vm.$router.push('/botlist');
-      //console.log(this.filterObj);
     })
   },
   beforeMount() {
