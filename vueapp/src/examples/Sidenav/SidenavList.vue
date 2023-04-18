@@ -112,9 +112,8 @@ export default {
   computed: {
     roles() { return this.$store.state.auth.roles;},
       isAdmin() {
-          if (this.$store.state.auth.techRoles) { if (this.$store.state.auth.techRoles.includes('Admin') || this.$store.state.auth.techRoles.includes('Supervisor')) return true; else return false; }
-      
-      
+        if (this.$store.state.auth.techRoles) { if (this.$store.state.auth.techRoles.includes('Admin') || this.$store.state.auth.techRoles.includes('Supervisor')) return true; else return false; }
+        else return false;
     }
   },
   methods: {

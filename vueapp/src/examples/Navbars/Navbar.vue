@@ -27,7 +27,7 @@
                    style="margin-right: 1rem;"
                    class="px-0 nav-link font-weight-bold text-white"
                    target="_blank">
-                    <span v-else class="d-sm-inline d-none">Здравствуйте, {{ username }}! </span>
+                    <span class="d-sm-inline d-none">Здравствуйте, {{ username }}! </span>
                 </a>
             </li>
 
@@ -76,7 +76,7 @@
   </nav>
 </template>
 <script>
-import Breadcrumbs from "../Breadcrumbs.vue";
+
     import { mapMutations, mapActions } from "vuex";
 
 export default {
@@ -107,7 +107,7 @@ export default {
       }
   },
   components: {
-    Breadcrumbs
+
   },
   computed: {
     currentRouteName() {
